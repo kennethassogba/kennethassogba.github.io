@@ -1,1 +1,0 @@
-$('#main.title').mouseOver.addClass('animated bounceOutLeft');
