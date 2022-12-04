@@ -3,12 +3,12 @@
     "short_name": "Kenn Assogba",
     "icons": [
         {
-            "src": "assets/favicon/android-chrome-192x192.png",
+            "src": "assets/img/me.jpg",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "assets/favicon/android-chrome-384x384.png",
+            "src": "assets/img/me.jpg",
             "sizes": "384x384",
             "type": "image/png"
         }
