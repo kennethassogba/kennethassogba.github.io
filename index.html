@@ -160,13 +160,11 @@
               </td>
               <td valign="top" width="75%">
                 <a href="assets/docs/mc_2023.pdf">
-                  <papertitle>Distributed Neutron Transport based on Discontinuous Galerkin and Spherical Harmonics
-                    Approximations</papertitle>
+                  <papertitle>The Pn form of the Neutron Transport Problem Achieves Linear Scalability Through Domain Decomposition </papertitle>
                 </a>
                 <br>
                 <strong>Kenneth Assogba</strong>,
-                Lahbib Bourhrara,
-                <a href="http://www.cmap.polytechnique.fr/~allaire/">Grégoire Allaire</a>
+                Lahbib Bourhrara
                 <br>
                 <em>Proceedings of International Conference on Mathematics and Computational Methods Applied to Nuclear
                   Science and Engineering (<b>M&C</b>)</em>, 2023
@@ -184,13 +182,14 @@
                 <br>
                 <a href="assets/docs/canum_2022.pdf">Poster</a>
                 <p></p>
-                <p>We leverage the benefits of the PN-DG discretization to build a distributed assembly-free transport
-                  solver based on an algebraic domain decomposition. The use of non-blocking communications allows to
-                  overlap
-                  computation and communication. Numerical experiments on reactor cores and fuel assemblies have been
-                  carried out up to 1000 CPU-cores. The results obtained show that the method is robust and scalable. In
-                  particular, we obtain the eigenvalue of the 3D-C5G7 core with an error of 12 pcm in 1 minute, reaching a
-                  19X speedup regarding shared-memory calculations.</p>
+                <p>we target large-scale neutron transport simulation using a combined discontinuous
+                Galerkin - spherical harmonics approximation. We leverage the benefits of DG discretization
+                to wrap the previous developed solver, in a canonical based domain decomposition framework. 
+                Robustness, strong and weak scalability experiments have been conducted on the 
+                CEA's pre-exascale system Topaze. We reach and maintain
+                a strong scaling efficiency of 100% up to 4096 cores and 80% up to 8192 cores. In particular, a
+                calculation with 913 million degrees of freedom is performed in 101 seconds. Thus outperforming
+                previously published results for PN transport as well as many SN and SPN solvers.</p>
               </td>
             </tr>
   
