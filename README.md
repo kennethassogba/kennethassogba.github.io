@@ -4,8 +4,6 @@ My personal site, built with [PRPL](https://github.com/tyhopp/prpl).
 
 See it deployed at [kennethassogba.github.io](https://kennethassogba.github.io/).
 
-o
-
 ## Build
 
 Install dependencies
