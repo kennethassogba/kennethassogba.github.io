@@ -1,0 +1,30 @@
+{
+  "name": "kenneth",
+  "version": "1.0.0",
+  "description": "My personal website, built with PRPL",
+  "type": "module",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kennethassogba/kennethassogba.github.io.git"
+  },
+  "scripts": {
+    "clean": "rm -rf dist",
+    "build": "npm run clean && node scripts/build.js",
+    "dev": "npm run clean && npm run build && prpl-server",
+    "deploy": "npm run build && git add . && git commit -m \"new\" && git push"
+  },
+  "author": "Kenneth Assogba",
+  "license": "MIT",
+  "keywords": [
+    "prpl"
+  ],
+  "dependencies": {
+    "@prpl/core": "^0.3.5",
+    "@prpl/plugin-code-highlight": "^0.3.7",
+    "@prpl/plugin-html-imports": "^0.2.12",
+    "@prpl/plugin-sitemap": "^0.1.12",
+    "@prpl/server": "^0.1.12",
+    "dotenv": "^16.0.0"
+  }
+}

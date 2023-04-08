@@ -1,0 +1,35 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up node
+      uses: actions/setup-node@v3
+      with:
+        node-version: latest
+        cache: 'npm'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build PRPL modules
+      run: npm run build
+
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: dist # The folder the action should deploy.
+

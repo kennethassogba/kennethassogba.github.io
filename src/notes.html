@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <base href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Notes</title>
+  <link rel="import" href="fragments/foundation.html" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="styles/index.css" />
+  <link rel="import" href="fragments/font.html" />
+  <style>
+    h1 {
+      text-align: center;
+    }
+
+    ul {
+      padding: 0;
+      list-style-type: disc;
+    }
+
+    li {
+      display: flex;
+      margin: 0.5em auto;
+      align-items: baseline;
+    }
+
+    .thanks {
+      margin: 0;
+      text-align: center;
+    }
+  </style>
+  <meta name="title" content="Kenneth Assogba" />
+  <meta name="description" content="PhD student in Applied Mathematics." />
+  <meta name="keywords" content="Modeling and Simulation, High Performance Computing, C++, MPI" />
+  <meta property="og:title" content="Kenneth Assogba" />
+  <meta property="og:description" content="PhD student in Applied Mathematics." />
+  <meta property="og:url" content="https://kennethassogba.github.io/notes" />
+  <link rel="import" href="fragments/favicon.html" />
+  <link rel="import" href="fragments/open-graph.html" />
+</head>
+
+<body>
+  <main class="notes">
+    <h1 class="notes-title">Notes</h1>
+    <ul>
+      <prpl type="list" sort-by="date" direction="desc" src="content/notes">
+        <li>
+          <time datetime="[date]">[date]</time>
+          <div>
+            <a href="[slug]">[title]</a>
+          </div>
+        </li>
+
+      </prpl>
+    </ul>
+    <hr />
+    <p class="thanks">Thanks for reading! Go <a href="/">home</a>.</p>
+  </main>
+</body>
+
+</html>

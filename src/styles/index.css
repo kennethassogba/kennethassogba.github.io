@@ -1,0 +1,30 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+h1 {
+  margin-bottom: 0.25em;
+}
+
+nav>a:first-of-type {
+  margin-right: 0.75em;
+}
+
+/*ul {
+  padding: 0;
+  list-style-type: disc;
+}
+
+li {
+  display: flex;
+  margin: 0.5em auto;
+  align-items: baseline;
+}*/
+
+time {
+  flex-shrink: 0;
+  margin-right: 0.75em;
+  min-width: 95px;
+}

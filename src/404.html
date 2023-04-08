@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="import" href="fragments/foundation.html" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/index.css" />
+    <style>
+      h1,
+      p {
+        text-align: center;
+      }
+    </style>
+    <link rel="import" href="fragments/font.html" />
+    <title>404</title>
+    <meta name="title" content="404" />
+    <meta name="description" content="404 not found page" />
+    <link rel="import" href="fragments/favicon.html" />
+  </head>
+  <body>
+    <main>
+      <h1>404</h1>
+      <p>No page found at this URL.</p>
+      <hr />
+      <p>Here are some recent notes:</p>
+      <ul>
+        <prpl type="list" sort-by="date" direction="desc" limit="3" src="content/notes">
+          <li>
+            <time datetime="[date]">[date]</time>
+            <div>
+              <a href="[slug]"> [title] </a>
+            </div>
+          </li>
+        </prpl>
+      </ul>
+      <p>Otherwise go <a href="/">home</a> for more notes.</p>
+    </main>
+  </body>
+</html>

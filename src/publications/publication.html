@@ -1,0 +1,54 @@
+<prpl type="page" src="content/publications">
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <link rel="import" href="fragments/foundation.html" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/note.css" />
+    <link rel="stylesheet" href="styles/code.css" />
+    <link rel="import" href="fragments/font.html" />
+    <title>[title]</title>
+    <meta name="title" content="[title]" />
+    <meta name="description" content="[description]" />
+    <meta name="keywords" content="[categories]" />
+    <meta property="og:title" content="[title]" />
+    <meta property="og:description" content="[description]" />
+    <meta property="og:url" content="https://kennethassogba.github.io[slug]" />
+    <link rel="import" href="fragments/favicon.html" />
+    <link rel="import" href="fragments/open-graph.html" />
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org/",
+          "@type": "Article",
+          "headline": "[title]",
+          "description": "[description]",
+          "datePublished": "[date]",
+          "author": {
+            "@type": "Person",
+            "name": "Kenneth Assogba",
+            "url": "https://kennethassogba.github.io"
+          },
+          "image": {
+            "@type": "ImageObject",
+            "url": "https://kennethassogba.github.io/assets/meta/open-graph-card.jpg",
+            "width": 2400,
+            "height": 1200
+          }
+        }
+      </script>
+  </head>
+
+  <body>
+    <main>
+      <h1>[title]</h1>
+      <br><i>[authors]</i>
+      <br>[place] <time datetime="[date]">[date]</time>
+      [body]
+      <hr />
+      <p class="thanks">Thanks for reading! Go <a href="/">home</a> for more.</p>
+    </main>
+  </body>
+
+  </html>
+</prpl>
