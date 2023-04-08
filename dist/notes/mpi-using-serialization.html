@@ -1,0 +1,87 @@
+
+  <!DOCTYPE html>
+  <html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+<meta name="theme-color" content="#181819" media="(prefers-color-scheme: dark)" />
+<base href="/" />
+
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="styles/note.css" />
+    <link rel="stylesheet" href="styles/code.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans&display=swap" rel="stylesheet">
+    <title>Send an object via MPI using serialization</title>
+    <meta name="title" content="Send an object via MPI using serialization" />
+    <meta name="description" content="Send an object via MPI using serialization." />
+    <meta name="keywords" content="C++, MPI" />
+    <meta property="og:title" content="Send an object via MPI using serialization" />
+    <meta property="og:description" content="Send an object via MPI using serialization." />
+    <meta property="og:url" content="https://kennethassogba.github.ionotes/mpi-using-serialization" />
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="assets/meta/favicon-180.png" />
+<link rel="apple-touch-icon" sizes="180x180" href="assets/meta/favicon-180.png" />
+<link rel="icon" type="image/png" sizes="192x192" href="assets/meta/favicon-192.png" />
+<link rel="icon" type="image/png" sizes="32x32" href="assets/meta/favicon-32.png" />
+<link rel="icon" type="image/png" sizes="16x16" href="assets/meta/favicon-16.png" />
+    <meta property="og:type" content="website" />
+<meta property="og:image" content="https://kennethassogba.github.io/assets/img/me.jpg" />
+<meta property="og:image:width" content="2400" />
+<meta property="og:image:height" content="1200" />
+<meta name="twitter:card" content="summary" />
+    <script type="application/ld+json">
+        {
+          "@context": "https://schema.org/",
+          "@type": "Article",
+          "headline": "Send an object via MPI using serialization",
+          "description": "Send an object via MPI using serialization.",
+          "datePublished": "2022-11-27",
+          "author": {
+            "@type": "Person",
+            "name": "Kenneth Assogba",
+            "url": "https://kennethassogba.github.io"
+          },
+          "image": {
+            "@type": "ImageObject",
+            "url": "https://kennethassogba.github.io/assets/meta/open-graph-card.jpg",
+            "width": 2400,
+            "height": 1200
+          }
+        }
+      </script>
+  </head>
+
+  <body>
+    <main>
+      <h1>Send an object via MPI using serialization</h1>
+      <time datetime="2022-11-27">2022-11-27</time>
+      <p>In progress</p>
+<p>To send an object instance with MPI, there are three main options:</p>
+<ol>
+<li>Serialize the object into a byte string and send that. This involves converting the object into a binary format that can be reconstructed elsewhere.</li>
+<li>Send each attribute of the object separately and reassemble it at the receiving end.</li>
+<li>Register the object as an MPI data type. This defines how the object should be laid out in memory so MPI knows how to send its constituent parts.</li>
+</ol>
+<p>Option 1, serialization, is a common approach. It requires a serialization library like Boost.Serialization to convert the object into a byte stream. Then MPI_Send() can be used to send the string, and MPI_Recv() used to receive it, before deserializing it into an object again.</p>
+<p>Present simple exemple of serialization → send → deserialization</p>
+<h2 id="ressources">Ressources</h2>
+<ul>
+<li><p><a href="https://stackoverflow.com/questions/31014044/how-to-send-a-set-object-in-mpi-send">How to send a set object in MPI_Send</a></p>
+</li>
+<li><p><a href="https://stackoverflow.com/questions/28901596/cant-get-c-boost-pointer-serialization-to-work">Can&#39;t get C++ Boost Pointer Serialization to work</a></p>
+</li>
+<li><p><a href="https://stackoverflow.com/questions/21408521/boost-serialization-of-dynamic-arrays">boost serialization of dynamic arrays</a></p>
+</li>
+<li><p><a href="https://stackoverflow.com/questions/51230764/serialization-deserialization-of-a-vector-of-integers-in-c">Serialization/Deserialization of a Vector of Integers in C++</a></p>
+</li>
+</ul>
+
+      <hr />
+      <p class="thanks">Thanks for reading! Go <a href="notes.html">back</a> for more notes.</p>
+    </main>
+  </body>
+
+  </html>
