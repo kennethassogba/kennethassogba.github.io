@@ -12,7 +12,7 @@
     "clean": "rm -rf dist",
     "build": "npm run clean && node scripts/build.js",
     "dev": "npm run clean && npm run build && prpl-server",
-    "deploy": "npm run build && git add . && git commit -m \"new\" && git push"
+    "deploy": "npm run build && git add . && git commit -m \"new deploy\" && git push"
   },
   "author": "Kenneth Assogba",
   "license": "MIT",

@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: /fragments/
-Sitemap: https://kennethassogba.github.io/sitemap.xml
-Host: https://kennethassogba.github.io
