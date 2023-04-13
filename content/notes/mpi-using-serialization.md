@@ -6,15 +6,19 @@ description: Send an object via MPI using serialization.
 categories: C++, MPI
 -->
 
-In progress
+**`tl;dr: Let us discuss about MPI and serialization.`**
 
 To send an object instance with MPI, there are three main options:
 
-1. Serialize the object into a byte string and send that. This involves converting the object into a binary format that can be reconstructed elsewhere.
-2. Send each attribute of the object separately and reassemble it at the receiving end.
-3. Register the object as an MPI data type. This defines how the object should be laid out in memory so MPI knows how to send its constituent parts.
+- Serialize the object into a byte string and send that. This involves converting the object into a binary format that can be reconstructed elsewhere.
+- Send each attribute of the object separately and reassemble it at the receiving end.
+- Register the object as an MPI data type. This defines how the object should be laid out in memory so MPI knows how to send its constituent parts.
 
-Option 1, serialization, is a common approach. It requires a serialization library like Boost.Serialization to convert the object into a byte stream. Then MPI_Send() can be used to send the string, and MPI_Recv() used to receive it, before deserializing it into an object again.
+## Serialization
+
+Let us discuss here about serialization. One uses the Boost.Serialization library to convert the object into a byte stream. Then `MPI_Send` can be used to send the stream, and `MPI_Recv` used to receive it. Finally, arrived at its destination, one deserialize the stream into an object again.
+
+(In progress)
 
 Present simple exemple of serialization → send → deserialization
 
