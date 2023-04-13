@@ -36,10 +36,11 @@ int main() {
  human::mpi::communicator world();
  auto rank = world.rank();
  auto size = world.size();
+ auto root = world.root();
  std::cout << "Process " << rank << "/" << size << std::endl;
 
  std::string msg;
- if (world.rank() == world.root()) msg = "Hello";
+ if (rank == root) msg = "Hello";
 
  world.bcast(msg);
  std::cout << "Process" << rank << " " << msg << std::endl;
@@ -55,7 +56,7 @@ The equivalent in pure MPI would be
 ```cpp
 #include <string>
 #include <iostream>
-#include "human/mpi.hpp"
+#include <mpi.h>
 
 int main(int argc, char* argv[]) {
 
@@ -63,18 +64,13 @@ int main(int argc, char* argv[]) {
 
  int rank = 0;
  MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-
  int size = 0;
  MPI_Comm_size(MPI_COMM_WORLD, &size);
-
  int root = 0;
-
  std::cout << "Process " << rank << "/" << size << std::endl;
 
  std::string msg;
  if (rank == root) msg = "Hello";
-
- world.bcast(msg);
 
  int msg_size = msg.size();
 
@@ -87,10 +83,11 @@ int main(int argc, char* argv[]) {
  std::cout << "Process" << rank << " " << msg << std::endl;
 
  MPI_Finalize();
-
  return 0;
 }
 ```
+
+The line `world.bcast(msg)` turns into at least 4 lines of code.
 
 ## A simple point-to-point communication
 
