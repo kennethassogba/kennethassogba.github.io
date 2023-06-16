@@ -10,7 +10,7 @@ categories: C++, MPI
 
 The developments are availible here [human.mpi](https://github.com/kennethassogba/human.mpi)
 
-MPI, or Message Passing Interface, is a standardized library for writing parallel programs in a distributed environment. It has become a standard in scientific computing and many legacy computing codes are progressively integrating MPI in view of the move to distributed computing architectures.
+MPI, or Message Passing Interface, is a standard for writing parallel programs in a distributed environment. It has become a reference in scientific computing and many legacy computing codes are progressively integrating MPI in view of the move to distributed computing architectures.
 
 ## Problem
 
@@ -78,7 +78,7 @@ int main(int argc, char* argv[]) {
 
  if (rank != root) msg.resize(msg_size);
 
- MPI_Bcast(msg.c_str(), msg_size, MPI_BYTE, root, MPI_COMM_WORLD);
+ MPI_Bcast(const_cast<char*>(msg.c_str()), msg_size, MPI_BYTE, root, MPI_COMM_WORLD);
 
  std::cout << "Process" << rank << " " << msg << std::endl;
 
