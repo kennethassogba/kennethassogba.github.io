@@ -10,6 +10,7 @@ categories: Conference proceeding
 
 - [Paper](assets/docs/physor_2022.pdf)
 - [Link](https://www.ans.org/pubs/proceedings/article-51104/)
+- [Conference](https://www.ans.org/meetings/physor2022/)
 
 ![Takeda 3 core](assets/img/takeda3.svg "Takeda 3 core")
 
