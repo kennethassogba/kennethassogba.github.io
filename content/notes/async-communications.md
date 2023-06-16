@@ -1,7 +1,7 @@
 <!--
 title: Async communications are effective
 slug: notes/async-communications
-date: 2023-05-05
+date: 2023-04-05
 description: Async communications.
 categories: MPI
 -->

@@ -1,7 +1,7 @@
 <!--
 title: Write a header-only object oriented interface around MPI
 slug: notes/write-interface-mpi
-date: 2023-04-07
+date: 2023-05-07
 description: Write interface around MPI.
 categories: C++, MPI
 -->
@@ -10,7 +10,7 @@ categories: C++, MPI
 
 The developments are availible here [human.mpi](https://github.com/kennethassogba/human.mpi)
 
-MPI, or Message Passing Interface, is a standard for writing parallel programs in a distributed environment. It has become a reference in scientific computing and many legacy computing codes are progressively integrating MPI in view of the move to distributed computing architectures.
+MPI or Message Passing Interface, is a standard for writing parallel programs in a distributed environment. It has become a reference in scientific computing and many legacy computing codes are progressively integrating MPI in view of the move to distributed computing architectures.
 
 ## Problem
 
