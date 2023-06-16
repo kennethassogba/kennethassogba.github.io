@@ -1,7 +1,7 @@
 <!--
 title: Send an object via MPI using serialization
 slug: notes/mpi-using-serialization
-date: 2022-11-27
+date: 2023-03-27
 description: Send an object via MPI using serialization.
 categories: C++, MPI
 -->
