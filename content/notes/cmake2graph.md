@@ -1,4 +1,12 @@
-# Developing cmake2graph: A Journey into CMake Dependency Visualization
+<!--
+title: Developing cmake2graph
+slug: notes/cmake2graph
+date: 2025-03-27
+description: CMake Dependency Visualization.
+categories: CMake
+-->
+
+# A Journey into CMake Dependency Visualization
 
 As software projects grow larger, understanding dependencies between components becomes increasingly challenging. This is especially true for C++ projects using CMake, where target dependencies can quickly become complex. This led me to develop `cmake2graph`, a tool that visualizes CMake target dependencies as directed graphs.
 
@@ -24,7 +32,7 @@ Working on large C++ codebases, I often encountered these challenges:
 Here's a simple example:
 
 ```bash
-cmake2graph /path/to/project --exclude-external --output deps.png
+cmake2graph /path/to/project --output deps.png
 ```
 
 ## Technical Implementation
@@ -119,5 +127,5 @@ The future roadmap focuses on making C++ dependency management more maintainable
 
 ## Links
 
-- [GitHub Repository](https://github.com/yourusername/cmake2graph)
+- [GitHub Repository](https://github.com/kennethassogba/cmake2graph)
 - [PyPI Package](https://pypi.org/project/cmake2graph)
