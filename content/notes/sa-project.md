@@ -76,8 +76,7 @@ categories: Draft
   - ITER, ENSTA, INRIA's [CASTOR](https://team.inria.fr/castor/fr/) and [TONUS](https://team.inria.fr/tonus/) teams.
 - Discuss use cases for PINNs, operator learning, or surrogate modeling.
 - Build a PhysicsNeMo-based prototype for a simplified plasma PDE (e.g. magnetohydrodynamics).
-- Benchmark vs traditional simulation methods (drawing on experience from CEA).
-- Share outcomes in internal workshops or technical communities.
+- Share outcomes in technical workshops.
 
 ---
 
