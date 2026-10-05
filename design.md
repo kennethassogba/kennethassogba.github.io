@@ -1,6 +1,6 @@
 # Kenneth's personal workshop
 
-Modern minimal, soft and informal. A personal place to show actual engineering,
+Modern, vivid, soft and informal. A personal place to show actual engineering,
 experiments and writing. SF is the visual reference, not a claim about location.
 Kenneth lives in Sceaux, France.
 
@@ -15,18 +15,17 @@ Kenneth lives in Sceaux, France.
 
 ## Theme and typography
 
-Teenage Engineering light greys, charcoal text, and orange accents. Geist display and body;
+An airy pastel palette: lavender for the introduction and website project,
+peach for La Bulle, blue for writing, and mint for developer tools and contact.
+Deep violet marks interactive text; dark ink keeps body copy readable. Pastels
+are large surfaces, not low-contrast text. Geist display and body;
 Geist Mono only for dates, code and tiny interface labels. Roman headings,
 tight tracking, generous but purposeful spacing. `tokens.css` is authoritative.
 Fonts are self-hosted. Shared tokens apply across all pages and dark mode.
 
-Reference: [Teenage Engineering](https://teenage.engineering/) and its
-[EP–133 guide](https://teenage.engineering/guides/ep-133/whats-new).
-Observed CSS colors: `#f5f5f5`, `#e5e5e5`, `#f1f2f2`, `#0f0e12`, `#4d4d4d`,
-and orange `#f05a24`. The site's accent is a deeper orange, `#d94f00`, chosen
-after Kenneth's color review. Small orange text uses `#af4100` in light mode;
-dark mode uses `#ff702c` for the accent and small text.
-Secondary text uses `#626262` instead of the reference's lighter greys.
+All colors use named OKLCH tokens. Dark mode uses the same hue families on
+deeper surfaces with lighter ink. Social previews read the same palette from
+`tokens.css`. No gradients, decorative blobs, or simulated app screenshots.
 
 ## Interaction
 
@@ -35,6 +34,12 @@ Keep their accessibility behavior; customize the presentation. Search is local,
 keyboard accessible, and shared with the experimental WebMCP search tool.
 Buttons and navigation never wrap. Long article titles may wrap normally.
 Visible, instant keyboard focus. No scrolling reveals or decorative animation.
+Text links have a visible violet underline in their resting state. Primary
+actions use filled rounded controls; navigation uses a compact pill treatment.
+Hover adds a soft tinted background. Link indicators never use arrows, chevrons,
+or replacement icons. Icons are reserved for actual controls and project types.
+La Bulle explains the session and the recap with real product details, rather
+than a slogan or empty decorative space.
 
 ## Voice
 
@@ -47,7 +52,23 @@ provenance. Older research stays available without defining current positioning.
 
 ### CSS
 
-Use the complete light and dark tokens in [`tokens.css`](tokens.css).
+The complete light and dark system is in [`tokens.css`](tokens.css). The core light palette is:
+
+```css
+:root {
+  --color-paper: oklch(98% 0.009 300);
+  --color-ink: oklch(23% 0.032 280);
+  --color-ink-2: oklch(39% 0.034 270);
+  --color-muted: oklch(44% 0.027 270);
+  --color-rule: oklch(85% 0.026 280);
+  --color-accent: oklch(50% 0.18 285);
+  --color-lavender: oklch(94% 0.045 300);
+  --color-mint: oklch(93% 0.054 160);
+  --color-peach: oklch(94% 0.051 40);
+  --color-blue: oklch(92.5% 0.048 250);
+  --color-focus: oklch(48% 0.21 285);
+}
+```
 
 ### Tailwind v4
 
@@ -67,9 +88,13 @@ Use the complete light and dark tokens in [`tokens.css`](tokens.css).
 ```json
 {
   "color": {
-    "paper": { "$type": "color", "$value": "#f5f5f5" },
-    "ink": { "$type": "color", "$value": "#0f0e12" },
-    "accent": { "$type": "color", "$value": "#d94f00" }
+    "paper": { "$type": "color", "$value": "oklch(98% 0.009 300)" },
+    "ink": { "$type": "color", "$value": "oklch(23% 0.032 280)" },
+    "accent": { "$type": "color", "$value": "oklch(50% 0.18 285)" },
+    "lavender": { "$type": "color", "$value": "oklch(94% 0.045 300)" },
+    "mint": { "$type": "color", "$value": "oklch(93% 0.054 160)" },
+    "peach": { "$type": "color", "$value": "oklch(94% 0.051 40)" },
+    "blue": { "$type": "color", "$value": "oklch(92.5% 0.048 250)" }
   },
   "font": {
     "body": { "$type": "fontFamily", "$value": "Geist Variable" },
@@ -87,11 +112,12 @@ Current shadcn/Tailwind v4 variables use full color values, rather than HSL trip
 :root {
   --background: var(--color-paper);
   --foreground: var(--color-ink);
-  --primary: var(--color-ink);
+  --primary: var(--color-accent);
   --primary-foreground: var(--color-paper);
   --accent: var(--color-accent-soft);
   --accent-foreground: var(--color-accent-text);
   --border: var(--color-rule);
-  --ring: var(--color-accent-text);
+  --input: var(--color-control-rule);
+  --ring: var(--color-focus);
 }
 ```

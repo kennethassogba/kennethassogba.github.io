@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, Check, Code2, Copy, FileText, Moon, Search, Sun } from "lucide-react";
+import { AudioLines, Check, Code2, Copy, FileText, Moon, Search, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -79,7 +79,7 @@ function Header({ data }: { data: SiteData }) {
 function NoteRow({ entry }: { entry: Entry }) {
   return <li className="note-row">
     <div className="note-row-main">
-      <a href={`/${entry.slug}`}><h3>{entry.title}</h3><ArrowUpRight size={17} aria-hidden="true" /></a>
+      <a href={`/${entry.slug}`}><h3>{entry.title}</h3></a>
       <p>{entry.description}</p>
     </div>
     <div className="note-meta"><time dateTime={entry.date}>{dateLabel(entry.date)}</time><span>{entry.readingMinutes} min read</span>{entry.draft && <Badge variant="outline">Draft</Badge>}</div>
@@ -93,11 +93,12 @@ function Home({ data }: { data: SiteData }) {
       <p className="hello">Hey, I’m Kenneth.</p>
       <h1 id="intro-title">Software engineer.<br /><span>AI in the loop.</span></h1>
       <p className="intro-copy">{profile.intro}</p>
-      <div className="intro-bottom"><a className="quiet-link" href="#work">My work <ArrowDown size={15} /></a><span className="location">Sceaux, France</span></div>
+      <ul className="focus-tags" aria-label="Engineering focus">{profile.focus.map(focus => <li key={focus}>{focus}</li>)}</ul>
+      <div className="intro-bottom"><a className="action-link" href="#work">My work</a><span className="location">Sceaux, France</span></div>
     </section>
 
     <section id="work" className="work-section" aria-labelledby="work-title">
-      <div className="section-heading"><h2 id="work-title">At Siemens EDA</h2><a className="quiet-link" href={profile.prototypingArticle}>Veloce proFPGA CS <ArrowUpRight size={14} /></a></div>
+      <div className="section-heading"><h2 id="work-title">At Siemens EDA</h2><a className="quiet-link" href={profile.prototypingArticle}>Veloce proFPGA CS</a></div>
       <p className="section-intro">{profile.prototyping}</p>
       <div className="work-list">{profile.work.map(item => <div className="work-line" key={item.label}><h3>{item.label}</h3><p>{item.text}</p></div>)}</div>
     </section>
@@ -106,23 +107,23 @@ function Home({ data }: { data: SiteData }) {
       <div className="section-heading"><h2 id="experiments-title">After hours</h2></div>
       <div className="project-grid">
         {profile.projects.slice(0, 2).map((project, i) => <article className={`project project-${i}`} key={project.name}>
-          <p className="project-kind">{project.category}</p>
-          <h3>{project.name}</h3>
+          <div className="project-heading"><div><p className="project-kind">{project.category}</p><h3>{project.name}</h3></div><span className="project-icon" aria-hidden="true">{i === 0 ? <AudioLines size={26} /> : <Code2 size={26} />}</span></div>
           <p>{project.description}</p>
+          {project.details && <dl className="project-details">{project.details.map(detail => <div key={detail.label}><dt>{detail.label}</dt><dd>{detail.text}</dd></div>)}</dl>}
           {i === 1 && <div className="format-pair" aria-label="Available content formats"><span>For you <strong>.html</strong></span><span>For your agent <strong>.md</strong></span></div>}
           <div className="project-tags">{project.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}</div>
-          <div className="project-links"><a href={i === 0 ? "/notes/building-la-bulle" : project.url}>Read the build note <ArrowUpRight size={14} /></a><a href={project.demo}>{i === 0 ? "Open La Bulle" : "For agents"} <ArrowRight size={14} /></a></div>
+          <div className="project-links"><a className="quiet-link" href={i === 0 ? "/notes/building-la-bulle" : project.url}>How I built it</a><a className="action-link" href={project.demo}>{i === 0 ? "Try La Bulle" : "For agents"}</a></div>
         </article>)}
       </div>
-      <a className="tool-row" href={profile.projects[2].url}><Code2 size={19} /><span><strong>cmake2graph</strong><span>{profile.projects[2].description}</span></span><ArrowUpRight size={17} /></a>
+      <a className="tool-row" href={profile.projects[2].url}><Code2 size={19} aria-hidden="true" /><span><strong>cmake2graph</strong><span>{profile.projects[2].description}</span></span></a>
     </section>
 
     <section className="writing-section" aria-labelledby="writing-title">
-      <div className="section-heading"><h2 id="writing-title">Notes</h2><a className="quiet-link" href="/notes.html">All notes <ArrowRight size={14} /></a></div>
+      <div className="section-heading"><h2 id="writing-title">Notes</h2><a className="quiet-link" href="/notes.html">All notes</a></div>
       <ul className="note-list">{notes.map(entry => <NoteRow key={entry.slug} entry={entry} />)}</ul>
     </section>
 
-    <section className="contact-section"><p>Contact</p><a href={`mailto:${profile.email}`}>Say hello <ArrowUpRight size={18} /></a></section>
+    <section className="contact-section"><p>Contact</p><a className="action-link" href={`mailto:${profile.email}`}>Say hello</a></section>
   </>;
 }
 
@@ -135,7 +136,7 @@ function Writing({ data }: { data: SiteData }) {
     <p className="page-lede">AI-assisted development, developer tools, C++, and scientific computing.</p>
     <div className="topics client-control" aria-label="Filter writing by topic">{topics.map(value => <Button key={value} variant={topic === value ? "default" : "ghost"} size="sm" aria-pressed={topic === value} onClick={() => setTopic(value)}>{value}</Button>)}</div>
     <ul className="note-list">{notes.filter(entry => topic === "All" || entry.categories === topic).map(entry => <NoteRow entry={entry} key={entry.slug} />)}</ul>
-    <div className="index-bottom"><a className="quiet-link" href="/feed.xml">Subscribe via RSS <ArrowUpRight size={14} /></a><MarkdownLink url={data.page.markdownUrl} /></div>
+    <div className="index-bottom"><a className="quiet-link" href="/feed.xml">Subscribe via RSS</a><MarkdownLink url={data.page.markdownUrl} /></div>
   </section>;
 }
 
@@ -180,7 +181,7 @@ function CopyMarkdown({ url }: { url: string }) {
 function Article({ data }: { data: SiteData }) {
   const entry = data.page.entry!;
   return <article className="article-page">
-    <a className="quiet-link article-back" href={entry.kind === "note" ? "/notes.html" : "/about.html"}><ArrowLeft size={14} /> {entry.kind === "note" ? "Back to writing" : "Back to about"}</a>
+    <a className="quiet-link article-back" href={entry.kind === "note" ? "/notes.html" : "/about.html"}>{entry.kind === "note" ? "All notes" : "About Kenneth"}</a>
     <header className="article-heading"><div className="article-meta"><time dateTime={entry.date}>{dateLabel(entry.date, true)}</time><span>{entry.categories}</span><span>{entry.readingMinutes} min read</span>{entry.draft && <Badge variant="outline">Draft</Badge>}</div><h1>{entry.title}</h1><p className="page-lede">{entry.description}</p>{entry.authors && <p className="muted">{entry.authors}</p>}</header>
     {entry.draft && <aside className="draft-notice">An older working note. Some results and references are still unfinished.</aside>}
     <div className="prose" dangerouslySetInnerHTML={{ __html: entry.html }} />
@@ -203,7 +204,7 @@ function Agents({ data }: { data: SiteData }) {
     <h1>For agents</h1>
     <p className="page-lede">Markdown pages, content discovery, and WebMCP tools.</p>
     <div className="prose"><p>Every page is available as Markdown. You can also read the content index or use the browser tools below.</p></div>
-    <dl className="resource-list">{resources.map(([name, url, description]) => <div key={url}><dt><a href={url}>{name} <ArrowUpRight size={14} /></a><code>{url}</code></dt><dd>{description}</dd></div>)}</dl>
+    <dl className="resource-list">{resources.map(([name, url, description]) => <div key={url}><dt><a className="quiet-link" href={url}>{name}</a><code>{url}</code></dt><dd>{description}</dd></div>)}</dl>
     <div className="prose">
       <h2>Content Signals</h2>
       <p>I allow search, AI input, and model training in <a href="/robots.txt">robots.txt</a>. Content Signals declare these preferences to crawlers that support them.</p>
@@ -211,12 +212,12 @@ function Agents({ data }: { data: SiteData }) {
       <p>In browsers with WebMCP support, <code>search_content</code> searches the notes and publications, and <code>read_page</code> reads a page as Markdown. Both tools are read-only.</p>
       <h2>Hosting</h2>
       <p>On GitHub Pages, use the explicit Markdown URLs. The optional Cloudflare adapter supports <code>Accept: text/markdown</code> and HTTP discovery headers. WebMCP support depends on the browser.</p>
-      <p><a href="/notes/a-website-for-people-and-agents">Read the implementation note <ArrowRight size={14} /></a></p>
+      <p><a href="/notes/a-website-for-people-and-agents">Read the implementation note</a></p>
     </div>
     <MarkdownLink url={data.page.markdownUrl} />
   </article>;
 }
 
 export function App({ data }: { data: SiteData }) {
-  return <div className="site-shell"><a className="skip-link" href="#main">Skip to content</a><Header data={data} /><main id="main">{data.page.type === "home" ? <Home data={data} /> : data.page.type === "about" ? <About data={data} /> : data.page.type === "notes" ? <Writing data={data} /> : data.page.type === "agents" ? <Agents data={data} /> : data.page.type === "article" ? <Article data={data} /> : <section className="not-found"><h1>Page not found</h1><p>This page doesn’t exist.</p><Button asChild><a href="/">Back home <ArrowLeft /></a></Button></section>}</main><footer className="site-footer"><span>{profile.name}</span><div><a href={profile.github}>GitHub</a><a href={profile.linkedin}>LinkedIn</a><a href="/agents.html">For agents</a></div></footer></div>;
+  return <div className="site-shell"><a className="skip-link" href={`${data.page.route}#main`}>Skip to content</a><Header data={data} /><main id="main">{data.page.type === "home" ? <Home data={data} /> : data.page.type === "about" ? <About data={data} /> : data.page.type === "notes" ? <Writing data={data} /> : data.page.type === "agents" ? <Agents data={data} /> : data.page.type === "article" ? <Article data={data} /> : <section className="not-found"><h1>Page not found</h1><p>This page doesn’t exist.</p><Button asChild><a href="/">Back home</a></Button></section>}</main><footer className="site-footer"><span>{profile.name}</span><div><a href={profile.github}>GitHub</a><a href={profile.linkedin}>LinkedIn</a><a href="/agents.html">For agents</a></div></footer></div>;
 }
