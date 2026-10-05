@@ -12,6 +12,7 @@ export type Entry = {
   draft: boolean;
   authors?: string;
   place?: string;
+  headings?: { id: string; title: string; level: number }[];
 };
 
 export type Page = {

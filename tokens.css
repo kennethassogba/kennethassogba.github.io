@@ -39,7 +39,7 @@
   --text-md: 1rem;
   --text-lg: 1.125rem;
   --text-xl: 1.5rem;
-  --text-display: clamp(2.5rem, 6vw, 4.75rem);
+  --text-display: clamp(2.25rem, 5vw, 3.5rem);
   --text-title: clamp(2rem, 5vw, 3rem);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);

@@ -43,11 +43,23 @@ export function parseContent(source: string, kind: Entry["kind"]): Entry {
     transformTags: { img: (tagName, attribs) => ({ tagName, attribs: { ...attribs, loading: "lazy" } }) },
   });
   html = html.replace(/<table>([\s\S]*?)<\/table>/g, '<div class="table-wrap" tabindex="0">$&</div>');
+  const headings: NonNullable<Entry["headings"]> = [];
+  const usedIds = new Set<string>();
+  html = html.replace(/<h([23])>([\s\S]*?)<\/h\1>/g, (_, level: string, body: string) => {
+    const title = sanitizeHtml(body, { allowedTags: [], allowedAttributes: {} })
+      .replace(/&(amp|lt|gt|quot|#39);/g, entity => ({ "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&#39;": "'" }[entity]!));
+    const stem = `section-${title.normalize("NFKD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "heading"}`;
+    let id = stem;
+    for (let suffix = 2; usedIds.has(id); suffix++) id = `${stem}-${suffix}`;
+    usedIds.add(id);
+    headings.push({ id, title, level: Number(level) });
+    return `<h${level} id="${id}">${body}</h${level}>`;
+  });
   const text = sanitizeHtml(html, { allowedTags: [], allowedAttributes: {} }).replace(/\s+/g, " ").trim();
   return {
     slug: fields.slug, title: fields.title, description: fields.description,
     date: fields.date, categories: fields.categories, authors: fields.authors, place: fields.place,
-    kind, html, markdown, text, readingMinutes: Math.max(1, Math.ceil(text.split(/\s+/).length / 220)),
+    kind, html, markdown, text, headings, readingMinutes: Math.max(1, Math.ceil(text.split(/\s+/).length / 220)),
     draft: fields.draft === "true" || /\(Draft\)|\[link\](?!\()|\[Table\](?!\()/i.test(markdown),
   };
 }

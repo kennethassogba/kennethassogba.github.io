@@ -1,5 +1,13 @@
 import type { Entry } from "../types";
 
+export function entryTopics(entry: Pick<Entry, "categories">) {
+  return entry.categories.split(",").map(topic => topic.trim()).filter(Boolean);
+}
+
+export function filterByTopic(entries: Entry[], topic: string) {
+  return topic === "All" ? entries : entries.filter(entry => entryTopics(entry).includes(topic));
+}
+
 export function searchEntries(entries: Entry[], query: string, limit = 20) {
   const words = query.toLowerCase().trim().split(/\s+/).filter(Boolean);
   return entries.filter(entry => {

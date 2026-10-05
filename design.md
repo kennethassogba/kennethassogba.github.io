@@ -7,10 +7,12 @@ Kenneth lives in Sceaux, France.
 ## Structure
 
 - Home: personal workshop. Name, two-line introduction, work in production,
-  an asymmetric pair of experiments, recent writing. No sales funnel.
+  an asymmetric pair of experiments, recent writing. La Bulle gets the larger
+  project area; the website itself stays compact. No sales funnel.
 - About: Long Document, with a compact work history and research links.
 - Writing: chronological reading list with topics and honest draft labels.
 - Articles: Long Document with a narrow measure, stable headings and code.
+  Longer articles include linked section headings before the body.
 - For agents: a useful resource directory, not a score dashboard.
 
 ## Theme and typography
@@ -36,6 +38,9 @@ use compact shapes with minimal rounding. Hover strengthens the underline. Link 
 or replacement icons. Icons are reserved for actual controls and project types.
 La Bulle explains the session and the recap with real product details, rather
 than a slogan or empty decorative space.
+Compact controls and standalone actions have a 44px minimum touch height.
+Topics match individual tags, with a live result count. Notes remains marked
+as the current section while reading a note.
 
 ## Voice
 
@@ -43,6 +48,11 @@ Personal and specific: compiler algorithms, agent skills, MCP, C++, Python,
 real experiments. No invented metrics, availability claims, or customer logos.
 Home uses concise paraphrases of LinkedIn; `docs/content-sources.md` records
 provenance. Older research stays available without defining current positioning.
+Use plain, natural sentences. Explain the actual work; avoid slogans,
+performative labels and claims that the source material does not support.
+Use Unicode NFC, ordinary spaces, straight quotes, hyphens and three-dot
+ellipses. Remove invisible characters and trailing whitespace. Preserve
+accented names and technical notation; do not transliterate them as lookalikes.
 
 ## Exports
 

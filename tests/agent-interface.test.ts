@@ -4,6 +4,7 @@ import { readFile, access } from "node:fs/promises";
 import { markdownPath, serveRepresentation, wantsMarkdown } from "../edge/representations";
 import { createAgentTools } from "../frontend/lib/webmcp";
 import { parseContent, loadEntries } from "../scripts/content";
+import { filterByTopic } from "../frontend/lib/content";
 import type { SiteData } from "../frontend/types";
 
 test("negotiation respects explicit media types, quality weights and exclusions", () => {
@@ -114,4 +115,25 @@ test("discovery files agree on URLs and the chosen usage policy", async () => {
   const feed = await readFile("dist/feed.xml", "utf8");
   assert.ok(feed.includes("a-website-for-people-and-agents"));
   assert.ok(!feed.includes("async-communications"));
+});
+
+test("MPI filtering includes notes with more than one topic", async () => {
+  const notes = (await loadEntries()).filter(entry => entry.kind === "note");
+  assert.deepEqual(filterByTopic(notes, "MPI").map(entry => entry.slug).sort(), [
+    "notes/async-communications", "notes/mpi-using-serialization", "notes/write-interface-mpi",
+  ]);
+  assert.equal(filterByTopic(notes, "C++").length, 2);
+  assert.equal(filterByTopic(notes, "All").length, 7);
+});
+
+test("article section anchors are safe, stable and unique without changing code samples", () => {
+  const source = '<!--\ntitle: Anchors\nslug: notes/anchors\ndate: 2026-10-06\ndescription: Test\ncategories: Test\n-->\n## Models & APIs\n## Models & APIs\n### Café\n```html\n<h2>Code, not a heading</h2>\n```';
+  const entry = parseContent(source, "note");
+  assert.deepEqual(entry.headings, [
+    { id: "section-models-apis", title: "Models & APIs", level: 2 },
+    { id: "section-models-apis-2", title: "Models & APIs", level: 2 },
+    { id: "section-cafe", title: "Café", level: 3 },
+  ]);
+  assert.ok(entry.html.includes('<h2 id="section-models-apis">'));
+  assert.ok(entry.markdown.includes('<h2>Code, not a heading</h2>'));
 });

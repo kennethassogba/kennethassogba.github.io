@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { profile } from "./profile";
-import { searchEntries } from "./lib/content";
+import { entryTopics, filterByTopic, searchEntries } from "./lib/content";
 import type { Entry, SiteData } from "./types";
 
 export function dateLabel(date: string, full = false) {
@@ -48,7 +48,7 @@ function SearchDialog({ entries }: { entries: Entry[] }) {
           <DialogTitle>Find a note</DialogTitle>
           <DialogDescription>Search notes and publications.</DialogDescription>
         </DialogHeader>
-        <Input aria-label="Search notes and publications" value={query} onChange={e => setQuery(e.target.value)} placeholder="Try agents, C++, or MPI…" />
+        <Input aria-label="Search notes and publications" value={query} onChange={e => setQuery(e.target.value)} placeholder="Try agents, C++, or MPI..." />
         <div className="search-results" aria-live="polite">
           {results.length ? results.map(entry => <a className="search-result" key={entry.slug} href={`/${entry.slug}`}>
             <span>{entry.title}</span><small>{entry.categories} · {dateLabel(entry.date)}</small>
@@ -68,7 +68,7 @@ function Header({ data }: { data: SiteData }) {
   return <header className="site-header">
     <a className="identity" href="/" aria-label="Kenneth Assogba, home"><img src="/assets/img/me.jpg" width="32" height="32" alt="" /> <span>Kenneth Assogba<span className="identity-dot">.</span></span></a>
     <nav aria-label="Main navigation">
-      <a href="/notes.html" aria-current={data.page.type === "notes" ? "page" : undefined}>Notes</a>
+      <a href="/notes.html" aria-current={data.page.type === "notes" ? "page" : data.page.entry?.kind === "note" ? "location" : undefined}>Notes</a>
       <a href="/about.html" aria-current={data.page.type === "about" ? "page" : undefined}>About</a>
       <SearchDialog entries={data.entries} />
       <ThemeButton />
@@ -90,7 +90,7 @@ function Home({ data }: { data: SiteData }) {
   const notes = data.entries.filter(e => e.kind === "note" && !e.draft).slice(0, 3);
   return <>
     <section className="intro" aria-labelledby="intro-title">
-      <p className="hello">Hey, I’m Kenneth.</p>
+      <p className="hello">Hey, I'm Kenneth.</p>
       <h1 id="intro-title">Software engineer.<br /><span>AI in the loop.</span></h1>
       <p className="intro-copy">{profile.intro}</p>
       <ul className="focus-tags" aria-label="Engineering focus">{profile.focus.map(focus => <li key={focus}>{focus}</li>)}</ul>
@@ -110,9 +110,8 @@ function Home({ data }: { data: SiteData }) {
           <div className="project-heading"><div><p className="project-kind">{project.category}</p><h3>{project.name}</h3></div><span className="project-icon" aria-hidden="true">{i === 0 ? <AudioLines size={26} /> : <Code2 size={26} />}</span></div>
           <p>{project.description}</p>
           {project.details && <dl className="project-details">{project.details.map(detail => <div key={detail.label}><dt>{detail.label}</dt><dd>{detail.text}</dd></div>)}</dl>}
-          {i === 1 && <div className="format-pair" aria-label="Available content formats"><span>For you <strong>.html</strong></span><span>For your agent <strong>.md</strong></span></div>}
           <div className="project-tags">{project.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}</div>
-          <div className="project-links"><a className="quiet-link" href={i === 0 ? "/notes/building-la-bulle" : project.url}>How I built it</a><a className="action-link" href={project.demo}>{i === 0 ? "Try La Bulle" : "For agents"}</a></div>
+          <div className="project-links"><a className="quiet-link" aria-label={`How I built ${i === 0 ? "La Bulle" : "this website"}`} href={i === 0 ? "/notes/building-la-bulle" : project.url}>How I built it</a><a className="action-link" href={project.demo}>{i === 0 ? "Try La Bulle" : "For agents"}</a></div>
         </article>)}
       </div>
       <a className="tool-row" href={profile.projects[2].url}><Code2 size={19} aria-hidden="true" /><span><strong>cmake2graph</strong><span>{profile.projects[2].description}</span></span></a>
@@ -130,32 +129,34 @@ function Home({ data }: { data: SiteData }) {
 function Writing({ data }: { data: SiteData }) {
   const [topic, setTopic] = useState("All");
   const notes = data.entries.filter(entry => entry.kind === "note");
-  const topics = ["All", ...new Set(notes.map(e => e.categories))];
+  const topics = ["All", ...new Set(notes.flatMap(entryTopics))];
+  const visibleNotes = filterByTopic(notes, topic);
   return <section className="document-index">
     <h1>Notes</h1>
     <p className="page-lede">AI-assisted development, developer tools, C++, and scientific computing.</p>
     <div className="topics client-control" aria-label="Filter writing by topic">{topics.map(value => <Button key={value} variant={topic === value ? "default" : "ghost"} size="sm" aria-pressed={topic === value} onClick={() => setTopic(value)}>{value}</Button>)}</div>
-    <ul className="note-list">{notes.filter(entry => topic === "All" || entry.categories === topic).map(entry => <NoteRow entry={entry} key={entry.slug} />)}</ul>
+    <p className="topic-count client-control" role="status" aria-live="polite" aria-atomic="true">{visibleNotes.length} {visibleNotes.length === 1 ? "note" : "notes"}{topic !== "All" && ` about ${topic}`}</p>
+    <ul className="note-list">{visibleNotes.map(entry => <NoteRow entry={entry} key={entry.slug} />)}</ul>
     <div className="index-bottom"><a className="quiet-link" href="/feed.xml">Subscribe via RSS</a><MarkdownLink url={data.page.markdownUrl} /></div>
   </section>;
 }
 
 function About({ data }: { data: SiteData }) {
   return <article className="about-page">
-    <div className="about-heading"><div><p className="hello">About</p><h1>Hi, I’m Kenneth.</h1></div><img src="/assets/img/me.jpg" width="104" height="104" alt="Kenneth Assogba" /></div>
+    <div className="about-heading"><div><p className="hello">About</p><h1>Hi, I'm Kenneth.</h1></div><img src="/assets/img/me.jpg" width="104" height="104" alt="Kenneth Assogba" /></div>
     <div className="prose">
       <p>{profile.intro}</p>
       <h2>FPGA prototyping</h2>
       <p>{profile.prototyping} {profile.work[0].text}</p>
       <p>{profile.work[1].text}</p>
       <p>{profile.work[2].text}</p>
-      <p><a href={profile.prototypingArticle}>Siemens’ overview of Veloce proFPGA CS</a> explains the prototyping platform.</p>
+      <p><a href={profile.prototypingArticle}>Siemens' overview of Veloce proFPGA CS</a> explains the prototyping platform.</p>
       <h2>AI-assisted development</h2>
       <p>{profile.work[3].text}</p>
       <h2>Experience</h2>
       <p>Before Siemens, I built simulation software at CEA during my PhD in Applied Mathematics at École polytechnique.</p>
       <p>I grew up in Benin and now live in Sceaux, France.</p>
-      <dl className="timeline"><div><dt>2023 — now</dt><dd><strong>Siemens EDA</strong><span>FPGA prototyping · Placement & partitioning · C++</span></dd></div><div><dt>2020 — 2023</dt><dd><strong>CEA / École polytechnique</strong><span>Simulation software · C++ · MPI & OpenMP · PhD</span></dd></div><div><dt>2020</dt><dd><strong>Total</strong><span>Wave propagation simulation and Python tooling</span></dd></div></dl>
+      <dl className="timeline"><div><dt>2023 - now</dt><dd><strong>Siemens EDA</strong><span>FPGA prototyping · Placement & partitioning · C++</span></dd></div><div><dt>2020 - 2023</dt><dd><strong>CEA / École polytechnique</strong><span>Simulation software · C++ · MPI & OpenMP · PhD</span></dd></div><div><dt>2020</dt><dd><strong>Total</strong><span>Wave propagation simulation and Python tooling</span></dd></div></dl>
       <h2>Publications</h2>
       <p>From my research at CEA.</p>
       <ul className="publication-list">{data.entries.filter(e => e.kind === "publication").map(e => <li key={e.slug}><a href={`/${e.slug}`}>{e.title}</a><small>{e.place} · {e.date}</small></li>)}</ul>
@@ -175,7 +176,7 @@ function CopyMarkdown({ url }: { url: string }) {
       await navigator.clipboard.writeText(await response.text());
       setStatus("copied");
     } catch { setStatus("error"); }
-  }}>{status === "copied" ? <Check /> : <Copy />}{status === "copied" ? "Copied" : status === "loading" ? "Copying…" : "Copy Markdown"}</Button><span className="copy-status" role="status">{status === "error" ? "Copy unavailable. Open the Markdown link instead." : status === "copied" ? "Markdown copied to clipboard." : ""}</span></>;
+  }}>{status === "copied" ? <Check /> : <Copy />}{status === "copied" ? "Copied" : status === "loading" ? "Copying..." : "Copy Markdown"}</Button><span className="copy-status" role="status">{status === "error" ? "Copy unavailable. Open the Markdown link instead." : status === "copied" ? "Markdown copied to clipboard." : ""}</span></>;
 }
 
 function Article({ data }: { data: SiteData }) {
@@ -184,6 +185,7 @@ function Article({ data }: { data: SiteData }) {
     <a className="quiet-link article-back" href={entry.kind === "note" ? "/notes.html" : "/about.html"}>{entry.kind === "note" ? "All notes" : "About Kenneth"}</a>
     <header className="article-heading"><div className="article-meta"><time dateTime={entry.date}>{dateLabel(entry.date, true)}</time><span>{entry.categories}</span><span>{entry.readingMinutes} min read</span>{entry.draft && <Badge variant="outline">Draft</Badge>}</div><h1>{entry.title}</h1><p className="page-lede">{entry.description}</p>{entry.authors && <p className="muted">{entry.authors}</p>}</header>
     {entry.draft && <aside className="draft-notice">An older working note. Some results and references are still unfinished.</aside>}
+    {entry.headings && entry.headings.filter(heading => heading.level === 2).length >= 4 && <nav className="article-contents" aria-label="Article sections"><h2>Contents</h2><ul>{entry.headings.filter(heading => heading.level === 2).map(heading => <li key={heading.id}><a href={`${data.page.route}#${heading.id}`}>{heading.title}</a></li>)}</ul></nav>}
     <div className="prose" dangerouslySetInnerHTML={{ __html: entry.html }} />
     <Separator className="article-rule" />
     <div className="article-formats"><MarkdownLink url={data.page.markdownUrl} /><CopyMarkdown url={data.page.markdownUrl} /></div>
@@ -219,5 +221,5 @@ function Agents({ data }: { data: SiteData }) {
 }
 
 export function App({ data }: { data: SiteData }) {
-  return <div className="site-shell"><a className="skip-link" href={`${data.page.route}#main`}>Skip to content</a><Header data={data} /><main id="main">{data.page.type === "home" ? <Home data={data} /> : data.page.type === "about" ? <About data={data} /> : data.page.type === "notes" ? <Writing data={data} /> : data.page.type === "agents" ? <Agents data={data} /> : data.page.type === "article" ? <Article data={data} /> : <section className="not-found"><h1>Page not found</h1><p>This page doesn’t exist.</p><Button asChild><a href="/">Back home</a></Button></section>}</main><footer className="site-footer"><span>{profile.name}</span><div><a href={profile.github}>GitHub</a><a href={profile.linkedin}>LinkedIn</a><a href="/agents.html">For agents</a></div></footer></div>;
+  return <div className="site-shell"><a className="skip-link" href={`${data.page.route}#main`}>Skip to content</a><Header data={data} /><main id="main">{data.page.type === "home" ? <Home data={data} /> : data.page.type === "about" ? <About data={data} /> : data.page.type === "notes" ? <Writing data={data} /> : data.page.type === "agents" ? <Agents data={data} /> : data.page.type === "article" ? <Article data={data} /> : <section className="not-found"><h1>Page not found</h1><p>This page doesn't exist.</p><Button asChild><a href="/">Back home</a></Button></section>}</main><footer className="site-footer"><span>{profile.name}</span><div><a href={profile.github}>GitHub</a><a href={profile.linkedin}>LinkedIn</a><a href="/agents.html">For agents</a></div></footer></div>;
 }

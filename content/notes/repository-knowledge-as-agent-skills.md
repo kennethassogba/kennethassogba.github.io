@@ -6,7 +6,7 @@ description: Documenting the codebase and engineering practices for coding agent
 categories: AI & agents
 -->
 
-I work on the compiler for FPGA prototyping at Siemens EDA, mainly on placement and partitioning. I’ve also started working on netlist qualification, including clock handling.
+I work on the compiler for FPGA prototyping at Siemens EDA, mainly on placement and partitioning. I've also started working on netlist qualification, including clock handling.
 
 Alongside that work, I write agent skills and integrate MCP servers into our development workflow.
 
@@ -34,4 +34,4 @@ The instructions should say when to use a tool and how to check its result.
 
 I use AI to assist development. The resulting changes still need code review, tests, and performance checks.
 
-I’m also [making this website AI-native](/notes/a-website-for-people-and-agents), with Markdown pages and tools for agents to search and read the content.
+I'm also [making this website AI-native](/notes/a-website-for-people-and-agents), with Markdown pages and tools for agents to search and read the content.

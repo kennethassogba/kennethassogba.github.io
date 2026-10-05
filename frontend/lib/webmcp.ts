@@ -11,7 +11,7 @@ export function createAgentTools(data: SiteData, readMarkdown: (path: string) =>
 }) {
   const tools: Tool[] = [
     {
-      name: "search_content", title: "Search Kenneth’s writing",
+      name: "search_content", title: "Search Kenneth's writing",
       description: "Search this site's public notes and publications. Returns titles, summaries and Markdown URLs. Read-only; does not contact external services.",
       inputSchema: { type: "object", properties: { query: { type: "string", maxLength: 200 }, limit: { type: "integer", minimum: 1, maximum: 20 } }, required: ["query"], additionalProperties: false },
       annotations: { readOnlyHint: true },

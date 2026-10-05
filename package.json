@@ -1,7 +1,7 @@
 {
   "name": "kenneth",
   "version": "1.0.0",
-  "description": "Kenneth Assogba — software engineering, AI and field notes",
+  "description": "Kenneth Assogba - software engineering, AI and field notes",
   "type": "module",
   "main": "index.js",
   "repository": {

@@ -75,7 +75,7 @@ Currently planning to add features that:
 target_link_libraries(app core)
 
 # After: Automatically fixed
-target_link_libraries(app 
+target_link_libraries(app
     PRIVATE
         core
         missing_dependency
