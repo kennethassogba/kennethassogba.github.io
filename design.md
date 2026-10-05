@@ -1,6 +1,6 @@
 # Kenneth's personal workshop
 
-Modern, vivid, soft and informal. A personal place to show actual engineering,
+Modern, restrained, soft and informal. A personal place to show actual engineering,
 experiments and writing. SF is the visual reference, not a claim about location.
 Kenneth lives in Sceaux, France.
 
@@ -15,17 +15,12 @@ Kenneth lives in Sceaux, France.
 
 ## Theme and typography
 
-An airy pastel palette: lavender for the introduction and website project,
-peach for La Bulle, blue for writing, and mint for developer tools and contact.
-Deep violet marks interactive text; dark ink keeps body copy readable. Pastels
-are large surfaces, not low-contrast text. Geist display and body;
-Geist Mono only for dates, code and tiny interface labels. Roman headings,
-tight tracking, generous but purposeful spacing. `tokens.css` is authoritative.
-Fonts are self-hosted. Shared tokens apply across all pages and dark mode.
-
-All colors use named OKLCH tokens. Dark mode uses the same hue families on
-deeper surfaces with lighter ink. Social previews read the same palette from
-`tokens.css`. No gradients, decorative blobs, or simulated app screenshots.
+Neutral paper and dark ink, with one muted lavender accent for links and the
+AI headline. La Bulle has a faint lavender tint. Other sections use neutral
+surfaces or the page background. Geist display and body; Geist Mono for dates,
+code and file formats. Roman headings, tight tracking, purposeful spacing.
+`tokens.css` is authoritative and applies across all pages and dark mode.
+Fonts are self-hosted. Social previews read the same palette from `tokens.css`.
 
 ## Interaction
 
@@ -34,9 +29,10 @@ Keep their accessibility behavior; customize the presentation. Search is local,
 keyboard accessible, and shared with the experimental WebMCP search tool.
 Buttons and navigation never wrap. Long article titles may wrap normally.
 Visible, instant keyboard focus. No scrolling reveals or decorative animation.
-Text links have a visible violet underline in their resting state. Primary
-actions use filled rounded controls; navigation uses a compact pill treatment.
-Hover adds a soft tinted background. Link indicators never use arrows, chevrons,
+Text links and primary actions have a visible underline in their resting state.
+Primary actions use slightly heavier type and underlines. Navigation is text,
+with an underline for the current page. Search, theme, filter and copy controls
+use compact shapes with minimal rounding. Hover strengthens the underline. Link indicators never use arrows, chevrons,
 or replacement icons. Icons are reserved for actual controls and project types.
 La Bulle explains the session and the recap with real product details, rather
 than a slogan or empty decorative space.
@@ -56,17 +52,14 @@ The complete light and dark system is in [`tokens.css`](tokens.css). The core li
 
 ```css
 :root {
-  --color-paper: oklch(98% 0.009 300);
-  --color-ink: oklch(23% 0.032 280);
-  --color-ink-2: oklch(39% 0.034 270);
-  --color-muted: oklch(44% 0.027 270);
-  --color-rule: oklch(85% 0.026 280);
-  --color-accent: oklch(50% 0.18 285);
-  --color-lavender: oklch(94% 0.045 300);
-  --color-mint: oklch(93% 0.054 160);
-  --color-peach: oklch(94% 0.051 40);
-  --color-blue: oklch(92.5% 0.048 250);
-  --color-focus: oklch(48% 0.21 285);
+  --color-paper: oklch(98.5% 0.005 285);
+  --color-ink: oklch(23% 0.018 280);
+  --color-ink-2: oklch(39% 0.012 270);
+  --color-muted: oklch(44% 0.011 270);
+  --color-rule: oklch(86% 0.01 280);
+  --color-accent: oklch(50% 0.095 285);
+  --color-lavender: oklch(96% 0.018 285);
+  --color-focus: oklch(48% 0.15 285);
 }
 ```
 
@@ -88,19 +81,43 @@ The complete light and dark system is in [`tokens.css`](tokens.css). The core li
 ```json
 {
   "color": {
-    "paper": { "$type": "color", "$value": "oklch(98% 0.009 300)" },
-    "ink": { "$type": "color", "$value": "oklch(23% 0.032 280)" },
-    "accent": { "$type": "color", "$value": "oklch(50% 0.18 285)" },
-    "lavender": { "$type": "color", "$value": "oklch(94% 0.045 300)" },
-    "mint": { "$type": "color", "$value": "oklch(93% 0.054 160)" },
-    "peach": { "$type": "color", "$value": "oklch(94% 0.051 40)" },
-    "blue": { "$type": "color", "$value": "oklch(92.5% 0.048 250)" }
+    "paper": {
+      "$type": "color",
+      "$value": "oklch(98.5% 0.005 285)"
+    },
+    "paper-2": {
+      "$type": "color",
+      "$value": "oklch(96.5% 0.005 285)"
+    },
+    "ink": {
+      "$type": "color",
+      "$value": "oklch(23% 0.018 280)"
+    },
+    "accent": {
+      "$type": "color",
+      "$value": "oklch(50% 0.095 285)"
+    },
+    "lavender": {
+      "$type": "color",
+      "$value": "oklch(96% 0.018 285)"
+    }
   },
   "font": {
-    "body": { "$type": "fontFamily", "$value": "Geist Variable" },
-    "mono": { "$type": "fontFamily", "$value": "Geist Mono Variable" }
+    "body": {
+      "$type": "fontFamily",
+      "$value": "Geist Variable"
+    },
+    "mono": {
+      "$type": "fontFamily",
+      "$value": "Geist Mono Variable"
+    }
   },
-  "space": { "md": { "$type": "dimension", "$value": "1.5rem" } }
+  "space": {
+    "md": {
+      "$type": "dimension",
+      "$value": "1.5rem"
+    }
+  }
 }
 ```
 
@@ -112,7 +129,7 @@ Current shadcn/Tailwind v4 variables use full color values, rather than HSL trip
 :root {
   --background: var(--color-paper);
   --foreground: var(--color-ink);
-  --primary: var(--color-accent);
+  --primary: var(--color-ink);
   --primary-foreground: var(--color-paper);
   --accent: var(--color-accent-soft);
   --accent-foreground: var(--color-accent-text);

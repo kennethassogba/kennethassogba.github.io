@@ -1,10 +1,13 @@
 {
   "date": "2026-10-05",
   "framework": "React with Vite; static HTML and Markdown builds",
-  "fonts": ["Geist Variable", "Geist Mono Variable"],
+  "fonts": [
+    "Geist Variable",
+    "Geist Mono Variable"
+  ],
   "spacing": "Named 4-point scale in tokens.css",
   "motion": "No reveals or decorative animation",
   "designSystem": "design.md",
-  "palette": "Custom OKLCH pastel surfaces with violet links",
+  "palette": "Neutral surfaces with one muted lavender accent",
   "scope": "Shared visual system; existing routes and components"
 }
