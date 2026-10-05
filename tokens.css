@@ -15,7 +15,6 @@
   --color-accent-ink: #0f0e12;
   --color-accent-soft: #f4e4d7;
   --color-project-surface: #e5e5e5;
-  --color-detail: var(--color-accent-text);
   --color-code-string: var(--color-ink-2);
   --color-error: #b23a24;
   --color-overlay: rgb(15 14 18 / 0.3);

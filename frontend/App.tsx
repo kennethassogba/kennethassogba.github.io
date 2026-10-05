@@ -109,7 +109,7 @@ function Home({ data }: { data: SiteData }) {
           <p className="project-kind">{project.category}</p>
           <h3>{project.name}</h3>
           <p>{project.description}</p>
-          {i === 0 ? <div className="bulle-detail"><span className="pause-mark" aria-hidden="true"><i /><i /></span><p>Pause the conversation.<br />Resume when you’re ready.</p></div> : <div className="format-pair" aria-label="Available content formats"><span>For you <strong>.html</strong></span><span>For your agent <strong>.md</strong></span></div>}
+          {i === 1 && <div className="format-pair" aria-label="Available content formats"><span>For you <strong>.html</strong></span><span>For your agent <strong>.md</strong></span></div>}
           <div className="project-tags">{project.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}</div>
           <div className="project-links"><a href={i === 0 ? "/notes/building-la-bulle" : project.url}>Read the build note <ArrowUpRight size={14} /></a><a href={project.demo}>{i === 0 ? "Open La Bulle" : "For agents"} <ArrowRight size={14} /></a></div>
         </article>)}
