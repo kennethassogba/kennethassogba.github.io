@@ -3,3 +3,6 @@ node_modules
 .env
 *.log
 .vscode
+.wrangler
+.dev.vars
+worker-configuration.d.ts

@@ -1,7 +1,7 @@
 {
   "name": "kenneth",
   "version": "1.0.0",
-  "description": "My personal website, built with PRPL",
+  "description": "Kenneth Assogba — software engineering, AI and field notes",
   "type": "module",
   "main": "index.js",
   "repository": {
@@ -9,22 +9,55 @@
     "url": "https://github.com/kennethassogba/kennethassogba.github.io.git"
   },
   "scripts": {
-    "clean": "rm -rf dist",
-    "build": "npm run clean && node scripts/build.js",
-    "dev": "npm run clean && npm run build && prpl-server",
-    "deploy": "npm run build && git add . && git commit -m \"new deploy\" && git push"
+    "build": "node --import tsx scripts/build.tsx",
+    "build:legacy": "node scripts/build.js",
+    "dev": "npm run build && node --import tsx scripts/serve.ts",
+    "preview": "node --import tsx scripts/serve.ts",
+    "check": "wrangler types && tsc --noEmit",
+    "test": "node --import tsx --test tests/*.test.ts",
+    "verify": "npm run check && npm run build && npm test"
   },
   "author": "Kenneth Assogba",
   "license": "MIT",
   "keywords": [
-    "prpl"
+    "software-engineering",
+    "agent-native",
+    "shadcn"
   ],
   "dependencies": {
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource-variable/geist-mono": "^5.3.0",
     "@prpl/core": "^0.3.5",
     "@prpl/plugin-code-highlight": "^0.3.7",
     "@prpl/plugin-html-imports": "^0.2.12",
     "@prpl/plugin-sitemap": "^0.1.12",
-    "@prpl/server": "^0.1.12",
-    "dotenv": "^16.0.0"
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "dotenv": "^16.0.0",
+    "highlight.js": "^11.12.0",
+    "lucide-react": "^1.52.0",
+    "marked": "^18.0.14",
+    "radix-ui": "^1.6.7",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "sanitize-html": "^2.18.0",
+    "tailwind-merge": "^3.7.0",
+    "turndown": "^7.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/sanitize-html": "^2.16.2",
+    "@types/turndown": "^5.0.6",
+    "@vitejs/plugin-react": "^6.1.1",
+    "sharp": "^0.35.5",
+    "tailwindcss": "^4.3.3",
+    "tsx": "^4.23.15",
+    "tw-animate-css": "^1.4.0",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.2",
+    "wrangler": "^4.147.0"
   }
 }

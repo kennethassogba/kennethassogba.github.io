@@ -1,0 +1,77 @@
+/* Hallmark · pre-emit critique: P5 H4 E4 S5 R5 V4
+ * genre: modern-minimal · macrostructure: personal workshop + Long Document
+ * theme: Teenage Engineering greys / charcoal / orange · design-system: design.md · designed-as-app
+ * nav: N9 Edge-aligned minimal · footer: Ft2 Inline single line */
+:root {
+  color-scheme: light;
+  --color-paper: #f5f5f5;
+  --color-paper-2: #f1f2f2;
+  --color-ink: #0f0e12;
+  --color-ink-2: #4d4d4d;
+  --color-muted: #626262;
+  --color-rule: #dbdbdb;
+  --color-accent: #d94f00;
+  --color-accent-text: #af4100;
+  --color-accent-ink: #0f0e12;
+  --color-accent-soft: #f4e4d7;
+  --color-project-surface: #e5e5e5;
+  --color-detail: var(--color-accent-text);
+  --color-code-string: var(--color-ink-2);
+  --color-error: #b23a24;
+  --color-overlay: rgb(15 14 18 / 0.3);
+  --font-display: 'Geist Variable', sans-serif;
+  --font-body: 'Geist Variable', sans-serif;
+  --font-outlier: 'Geist Mono Variable', monospace;
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2rem;
+  --space-xl: 3rem;
+  --space-2xl: 4.5rem;
+  --space-3xl: 6rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-md: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.5rem;
+  --text-display: clamp(2.25rem, 5.6vw, 4.5rem);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-short: 160ms;
+  --radius-card: 1rem;
+  --radius-pill: 999px;
+  --radius-input: 0.5rem;
+  --background: var(--color-paper);
+  --foreground: var(--color-ink);
+  --primary: var(--color-ink);
+  --primary-foreground: var(--color-paper);
+  --secondary: var(--color-paper-2);
+  --secondary-foreground: var(--color-ink);
+  --muted: var(--color-paper-2);
+  --muted-foreground: var(--color-muted);
+  --accent: var(--color-accent-soft);
+  --accent-foreground: var(--color-accent-text);
+  --border: var(--color-rule);
+  --input: var(--color-rule);
+  --ring: var(--color-accent-text);
+  --popover: var(--color-paper);
+  --popover-foreground: var(--color-ink);
+  --destructive: var(--color-error);
+  --radius: 0.75rem;
+}
+.dark {
+  color-scheme: dark;
+  --color-paper: #0f0e12;
+  --color-paper-2: #272727;
+  --color-ink: #f5f5f5;
+  --color-ink-2: #dbdbdb;
+  --color-muted: #b2b2b2;
+  --color-rule: #4d4d4d;
+  --color-accent: #ff702c;
+  --color-accent-text: #ff702c;
+  --color-accent-soft: #332219;
+  --color-project-surface: #272727;
+  --color-error: #ff9d82;
+  --color-overlay: rgb(15 14 18 / 0.7);
+}
