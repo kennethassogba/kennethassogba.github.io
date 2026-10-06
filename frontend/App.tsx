@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AudioLines, Check, Code2, Copy, FileText, Moon, Search, Sun } from "lucide-react";
+import { Check, Copy, FileText, Moon, Search, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -66,13 +66,19 @@ function MarkdownLink({ url }: { url: string }) {
 
 function Header({ data }: { data: SiteData }) {
   return <header className="site-header">
-    <a className="identity" href="/" aria-label="Kenneth Assogba, home"><img src="/assets/img/me.jpg" width="32" height="32" alt="" /> <span>Kenneth Assogba<span className="identity-dot">.</span></span></a>
+    <a className="identity" href="/" aria-label="Kenneth Assogba, home"><span>Kenneth Assogba.</span></a>
     <nav aria-label="Main navigation">
       <a href="/notes.html" aria-current={data.page.type === "notes" ? "page" : data.page.entry?.kind === "note" ? "location" : undefined}>Notes</a>
       <a href="/about.html" aria-current={data.page.type === "about" ? "page" : undefined}>About</a>
+    </nav>
+    <div className="sidebar-profile">
+      <img className="sidebar-portrait" src="/assets/img/me.jpg" width="206" height="266" alt="Kenneth Assogba" />
+      <p className="sidebar-location">{profile.location}</p>
+    </div>
+    <div className="sidebar-controls">
       <SearchDialog entries={data.entries} />
       <ThemeButton />
-    </nav>
+    </div>
   </header>;
 }
 
@@ -91,30 +97,27 @@ function Home({ data }: { data: SiteData }) {
   return <>
     <section className="intro" aria-labelledby="intro-title">
       <p className="hello">Hey, I'm Kenneth.</p>
-      <h1 id="intro-title">Software engineer.<br /><span>AI in the loop.</span></h1>
-      <p className="intro-copy">{profile.intro}</p>
+      <h1 id="intro-title">Software engineer<br /><span>at Siemens EDA.</span></h1>
+      <p className="intro-copy">{profile.summary}</p>
       <ul className="focus-tags" aria-label="Engineering focus">{profile.focus.map(focus => <li key={focus}>{focus}</li>)}</ul>
-      <div className="intro-bottom"><a className="action-link" href="#work">My work</a><span className="location">Sceaux, France</span></div>
     </section>
 
     <section id="work" className="work-section" aria-labelledby="work-title">
-      <div className="section-heading"><h2 id="work-title">At Siemens EDA</h2><a className="quiet-link" href={profile.prototypingArticle}>Veloce proFPGA CS</a></div>
-      <p className="section-intro">{profile.prototyping}</p>
-      <div className="work-list">{profile.work.map(item => <div className="work-line" key={item.label}><h3>{item.label}</h3><p>{item.text}</p></div>)}</div>
+      <div className="section-heading"><h2 id="work-title">Work at Siemens EDA</h2><a className="quiet-link work-reference" href={profile.prototypingArticle}>Veloce proFPGA CS</a></div>
+      <div className="work-list">{profile.work.slice(0, 3).map(item => <div className="work-line" key={item.label}><h3>{item.label}</h3><p>{item.text}</p></div>)}</div>
     </section>
 
     <section className="experiments-section" aria-labelledby="experiments-title">
-      <div className="section-heading"><h2 id="experiments-title">After hours</h2></div>
+      <div className="section-heading"><h2 id="experiments-title">Personal projects</h2></div>
       <div className="project-grid">
         {profile.projects.slice(0, 2).map((project, i) => <article className={`project project-${i}`} key={project.name}>
-          <div className="project-heading"><div><p className="project-kind">{project.category}</p><h3>{project.name}</h3></div><span className="project-icon" aria-hidden="true">{i === 0 ? <AudioLines size={26} /> : <Code2 size={26} />}</span></div>
+          <div className="project-heading"><h3>{project.name}</h3></div>
           <p>{project.description}</p>
           {project.details && <dl className="project-details">{project.details.map(detail => <div key={detail.label}><dt>{detail.label}</dt><dd>{detail.text}</dd></div>)}</dl>}
-          <div className="project-tags">{project.tags.map(tag => <Badge key={tag} variant="secondary">{tag}</Badge>)}</div>
-          <div className="project-links"><a className="quiet-link" aria-label={`How I built ${i === 0 ? "La Bulle" : "this website"}`} href={i === 0 ? "/notes/building-la-bulle" : project.url}>How I built it</a><a className="action-link" href={project.demo}>{i === 0 ? "Try La Bulle" : "For agents"}</a></div>
+          <div className="project-links"><a className="quiet-link" href={project.demo}>{i === 0 ? "Try La Bulle" : "For agents"}</a><a className="quiet-link" aria-label={`How I built ${i === 0 ? "La Bulle" : "this website"}`} href={i === 0 ? "/notes/building-la-bulle" : project.url}>How I built it</a></div>
         </article>)}
       </div>
-      <a className="tool-row" href={profile.projects[2].url}><Code2 size={19} aria-hidden="true" /><span><strong>cmake2graph</strong><span>{profile.projects[2].description}</span></span></a>
+      <div className="tool-row"><a className="quiet-link" href={profile.projects[2].url}>cmake2graph</a><p>{profile.projects[2].description}</p></div>
     </section>
 
     <section className="writing-section" aria-labelledby="writing-title">

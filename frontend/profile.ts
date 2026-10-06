@@ -1,3 +1,5 @@
+const summary = "I build software that maps large chip designs onto FPGAs, so teams can test them before manufacturing. I also use AI for development and write agent skills and MCP integrations.";
+
 export const profile = {
   name: "Kenneth Assogba",
   role: "Software Engineer",
@@ -7,11 +9,12 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/kennethassogba/",
   github: "https://github.com/kennethassogba",
   email: "kennethassogba@gmail.com",
-  intro: "I'm a software engineer at Siemens EDA. I build software that maps large chip designs onto programmable hardware (FPGAs), so teams can test them before manufacturing the chips. I also use AI for development and build agent skills and MCP integrations.",
+  intro: `I'm a software engineer at Siemens EDA. ${summary}`,
+  summary,
   prototyping: "I work on the compiler for FPGA prototyping, which maps a chip design across multiple FPGAs.",
-  focus: ["C++ & Python", "AI-assisted development", "Agent skills & MCP"],
+  focus: ["C++ & Python", "EDA", "AI-assisted development", "Agent skills & MCP"],
   work: [
-    { label: "Placement & partitioning", text: "I develop placement and partitioning algorithms that map a chip's netlist across multiple FPGAs." },
+    { label: "Placement & partitioning", text: "Placement and partitioning algorithms in the compiler for multi-FPGA prototyping." },
     { label: "Netlist qualification", text: "I've recently started working on netlist qualification, including clock handling." },
     { label: "Performance optimization", text: "I redesigned circuit replication to run over 4× faster on production designs, and optimized graph pruning with speedups of up to 60× on large circuits." },
     { label: "AI-assisted development", text: "I write agent skills that explain our codebase and engineering practices, and integrate MCP servers into the development workflow." },

@@ -1,4 +1,4 @@
-# Kenneth's personal workshop
+# Kenneth's technical profile
 
 Modern, restrained, soft and informal. A personal place to show actual engineering,
 experiments and writing. SF is the visual reference, not a claim about location.
@@ -6,9 +6,12 @@ Kenneth lives in Sceaux, France.
 
 ## Structure
 
-- Home: personal workshop. Name, two-line introduction, work in production,
-  an asymmetric pair of experiments, recent writing. La Bulle gets the larger
-  project area; the website itself stays compact. No sales funnel.
+- Home: a left rail with name, navigation and portrait. The main column opens
+  with the current role at Siemens EDA, followed by precise compiler work,
+  personal projects and recent notes. Flat project sections use hairline
+  dividers. La Bulle gets the larger area and retains its product details.
+- Desktop: the rail stays visible while reading. On smaller screens it becomes
+  a compact header, with the portrait beside the navigation.
 - About: Long Document, with a compact work history and research links.
 - Writing: chronological reading list with topics and honest draft labels.
 - Articles: Long Document with a narrow measure, stable headings and code.
@@ -18,8 +21,7 @@ Kenneth lives in Sceaux, France.
 ## Theme and typography
 
 Neutral paper and dark ink, with one muted lavender accent for links and the
-AI headline. La Bulle has a faint lavender tint. Other sections use neutral
-surfaces or the page background. Geist display and body; Geist Mono for dates,
+employer headline. Project sections use the page background. Geist display and body; Geist Mono for dates,
 code and file formats. Roman headings, tight tracking, purposeful spacing.
 `tokens.css` is authoritative and applies across all pages and dark mode.
 Fonts are self-hosted. Social previews read the same palette from `tokens.css`.
@@ -46,7 +48,7 @@ as the current section while reading a note.
 
 Personal and specific: compiler algorithms, agent skills, MCP, C++, Python,
 real experiments. No invented metrics, availability claims, or customer logos.
-Home uses concise paraphrases of LinkedIn; `docs/content-sources.md` records
+Home uses verified work details from LinkedIn and Kenneth; `docs/content-sources.md` records
 provenance. Older research stays available without defining current positioning.
 Use plain, natural sentences. Explain the actual work; avoid slogans,
 performative labels and claims that the source material does not support.
