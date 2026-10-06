@@ -33,7 +33,7 @@
   --font-mono: var(--font-outlier);
 }
 
-/* Selected technical profile: persistent portrait rail and editorial main column. */
+/* Selected technical profile: persistent navigation rail and editorial main column. */
 @layer base {
   * { box-sizing: border-box; border-color: var(--border); }
   html, body { margin: 0; background: var(--background); color: var(--foreground); }
@@ -58,9 +58,7 @@
 .site-header nav { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; margin-top: 20px; }
 .site-header nav a { display: inline-flex; align-items: center; min-height: 44px; font-size: 18px; color: var(--color-ink-2); text-decoration: underline; text-decoration-color: transparent; text-underline-offset: 6px; }
 .site-header nav a:hover, .site-header nav a[aria-current] { color: var(--foreground); text-decoration-color: var(--color-accent); text-decoration-thickness: 2px; }
-.sidebar-profile { margin-top: 42px; }
-.sidebar-portrait { width: 206px; aspect-ratio: 206 / 266; height: auto; object-fit: cover; object-position: center; }
-.sidebar-location { font-family: var(--font-outlier); font-size: 13px; line-height: 1.6; color: var(--color-muted); margin: 24px 0 0; }
+.sidebar-location { font-family: var(--font-outlier); font-size: 13px; line-height: 1.6; color: var(--color-muted); margin: 32px 0 0; }
 .sidebar-controls { display: flex; align-items: center; gap: var(--space-2xs); margin-top: auto; padding-top: var(--space-lg); }
 .sidebar-controls button { min-width: 44px; min-height: 44px; background: transparent; color: var(--color-muted); border-radius: var(--radius-input); }
 main { grid-column: 2; min-width: 0; }
@@ -131,8 +129,8 @@ main { grid-column: 2; min-width: 0; }
 .topic-count { font-size: var(--text-sm); color: var(--color-muted); margin: 0 0 var(--space-sm); }
 .index-bottom { display: flex; justify-content: space-between; gap: var(--space-sm); flex-wrap: wrap; margin-top: var(--space-lg); }
 .about-page, .agents-page { max-width: 700px; }
-.about-heading { margin-bottom: var(--space-lg); }
-.about-heading img { display: none; }
+.about-heading { display: flex; align-items: center; justify-content: space-between; gap: var(--space-lg); margin-bottom: var(--space-lg); }
+.about-heading img { width: 176px; height: auto; flex-shrink: 0; }
 .about-heading h1 { margin: 0; }
 .prose { max-width: 68ch; font-size: var(--text-md); color: var(--color-ink-2); line-height: 1.85; overflow-wrap: break-word; }
 .prose p { margin: 0 0 var(--space-md); }
@@ -220,12 +218,10 @@ main { grid-column: 2; min-width: 0; }
 }
 @media (max-width: 880px) {
   .site-shell { display: block; padding-inline: clamp(24px, 5vw, 40px); }
-  .site-header { position: static; min-height: 0; padding: 24px 0; border: 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'identity profile' 'nav profile' 'controls profile'; gap: 0 20px; }
+  .site-header { position: static; min-height: 0; padding: 24px 0; border: 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'identity controls' 'nav controls'; gap: 0 20px; }
   .identity { grid-area: identity; font-size: 18px; }
   .site-header nav { grid-area: nav; flex-direction: row; gap: 24px; margin: 0; }
   .site-header nav a { font-size: var(--text-md); }
-  .sidebar-profile { grid-area: profile; margin: 0; width: 90px; align-self: start; }
-  .sidebar-portrait { width: 90px; }
   .sidebar-location { display: none; }
   .sidebar-controls { grid-area: controls; margin: 0; padding: 0; }
   .intro { padding-top: 40px; }
@@ -256,10 +252,11 @@ main { grid-column: 2; min-width: 0; }
   .article-contents ul { grid-template-columns: minmax(0, 1fr); }
   .timeline > div, .resource-list > div { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xs); }
   .search-dialog { padding: var(--space-md); }
+  .about-heading { align-items: flex-start; gap: var(--space-md); }
+  .about-heading img { width: 96px; }
 }
 @media (max-width: 360px) {
   .site-shell { padding-inline: 18px; }
-  .sidebar-profile, .sidebar-portrait { width: 72px; }
   .identity { font-size: var(--text-md); }
   .intro h1 { font-size: 29px; }
 }

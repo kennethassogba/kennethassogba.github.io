@@ -6,13 +6,14 @@ Kenneth lives in Sceaux, France.
 
 ## Structure
 
-- Home: a left rail with name, navigation and portrait. The main column opens
+- Home: a left rail with name, navigation and location. The main column opens
   with the current role at Siemens EDA, followed by precise compiler work,
   personal projects and recent notes. Flat project sections use hairline
   dividers. La Bulle gets the larger area and retains its product details.
 - Desktop: the rail stays visible while reading. On smaller screens it becomes
-  a compact header, with the portrait beside the navigation.
-- About: Long Document, with a compact work history and research links.
+  a compact header with navigation and controls.
+- About: Long Document, with the portrait beside the introduction, a compact
+  work history and research links. The portrait appears only on About.
 - Writing: chronological reading list with topics and honest draft labels.
 - Articles: Long Document with a narrow measure, stable headings and code.
   Longer articles include linked section headings before the body.

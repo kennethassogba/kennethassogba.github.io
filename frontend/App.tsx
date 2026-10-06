@@ -71,10 +71,7 @@ function Header({ data }: { data: SiteData }) {
       <a href="/notes.html" aria-current={data.page.type === "notes" ? "page" : data.page.entry?.kind === "note" ? "location" : undefined}>Notes</a>
       <a href="/about.html" aria-current={data.page.type === "about" ? "page" : undefined}>About</a>
     </nav>
-    <div className="sidebar-profile">
-      <img className="sidebar-portrait" src="/assets/img/me.jpg" width="206" height="266" alt="Kenneth Assogba" />
-      <p className="sidebar-location">{profile.location}</p>
-    </div>
+    <p className="sidebar-location">{profile.location}</p>
     <div className="sidebar-controls">
       <SearchDialog entries={data.entries} />
       <ThemeButton />
@@ -146,7 +143,7 @@ function Writing({ data }: { data: SiteData }) {
 
 function About({ data }: { data: SiteData }) {
   return <article className="about-page">
-    <div className="about-heading"><div><p className="hello">About</p><h1>Hi, I'm Kenneth.</h1></div><img src="/assets/img/me.jpg" width="104" height="104" alt="Kenneth Assogba" /></div>
+    <div className="about-heading"><div><p className="hello">About</p><h1>Hi, I'm Kenneth.</h1></div><img src="/assets/img/portrait.png" width="176" height="176" alt="Kenneth Assogba" /></div>
     <div className="prose">
       <p>{profile.intro}</p>
       <h2>FPGA prototyping</h2>
