@@ -9,6 +9,7 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/kennethassogba/",
   github: "https://github.com/kennethassogba",
   email: "kennethassogba@gmail.com",
+  hackathonUrl: "https://ax.polytechnique.org/fr/event/x-ia-hachathon-1-rise-of-agents-x/2026/09/27/3147",
   intro: `I'm a software engineer at Siemens EDA. ${summary}`,
   summary,
   prototyping: "I work on the compiler for FPGA prototyping, which maps a chip design across multiple FPGAs.",
@@ -20,7 +21,7 @@ export const profile = {
     { label: "AI-assisted development", text: "I write agent skills that explain our codebase and engineering practices, and integrate MCP servers into the development workflow." },
   ],
   projects: [
-    { name: "La Bulle", category: "Team project", description: "I built this voice coaching app with Séb and Fano for the X-IA hackathon. You talk through a situation, then get a recap you can edit.", details: [
+    { name: "La Bulle", category: "Team project", description: "I built this voice coaching app for the X-IA hackathon. You talk through a situation, then get a recap you can edit.", details: [
       { label: "During the session", text: "The coach asks one question at a time. You can interrupt it or ask for time to think." },
       { label: "After the call", text: "Edit the recap, send it by email, or use it to start the optional Notion follow-up." },
     ], url: "https://github.com/kennethassogba/hodge-podge", demo: "https://bulle.hodge-podge.workers.dev/?lang=en", tags: ["OpenAI Realtime", "Workers & D1", "Resend"] },

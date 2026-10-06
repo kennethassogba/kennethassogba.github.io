@@ -111,7 +111,7 @@ function Home({ data }: { data: SiteData }) {
           <div className="project-heading"><h3>{project.name}</h3></div>
           <p>{project.description}</p>
           {project.details && <dl className="project-details">{project.details.map(detail => <div key={detail.label}><dt>{detail.label}</dt><dd>{detail.text}</dd></div>)}</dl>}
-          <div className="project-links"><a className="quiet-link" href={project.demo}>{i === 0 ? "Try La Bulle" : "For agents"}</a><a className="quiet-link" aria-label={`How I built ${i === 0 ? "La Bulle" : "this website"}`} href={i === 0 ? "/notes/building-la-bulle" : project.url}>How I built it</a></div>
+          <div className="project-links"><a className="quiet-link" href={project.demo}>{i === 0 ? "Try La Bulle" : "For agents"}</a><a className="quiet-link" aria-label={`How I built ${i === 0 ? "La Bulle" : "this website"}`} href={i === 0 ? "/notes/building-la-bulle" : project.url}>How I built it</a>{i === 0 && <a className="quiet-link" href={profile.hackathonUrl}>X-IA hackathon</a>}</div>
         </article>)}
       </div>
       <div className="tool-row"><a className="quiet-link" href={profile.projects[2].url}>cmake2graph</a><p>{profile.projects[2].description}</p></div>

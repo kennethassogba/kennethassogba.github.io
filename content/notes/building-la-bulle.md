@@ -6,7 +6,7 @@ description: Scaffolding a voice coaching app with Codex, OpenAI Realtime, Cloud
 categories: AI & agents
 -->
 
-[La Bulle](https://bulle.hodge-podge.workers.dev/?lang=en) is a voice coaching app I built with Séb and Fano for the X-IA hackathon. Séb brought the Kedo micro-coaching protocol: 14 questions, asked one at a time, with room to think.
+[La Bulle](https://bulle.hodge-podge.workers.dev/?lang=en) is a voice coaching app I built for the [X-IA hackathon](https://ax.polytechnique.org/fr/event/x-ia-hachathon-1-rise-of-agents-x/2026/09/27/3147). Séb brought the Kedo micro-coaching protocol: 14 questions, asked one at a time, with room to think.
 
 You describe a situation, talk it through, then get an editable recap. You can keep a few notes for the next session, send the recap by email, or continue in Notion.
 
