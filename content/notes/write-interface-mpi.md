@@ -6,23 +6,17 @@ description: Write interface around MPI.
 categories: C++, MPI
 -->
 
-**`tl;dr: I have written a simple header-only MPI interface in C++.`**
+I wrote [human.mpi](https://github.com/kennethassogba/human.mpi), a header-only C++ interface around MPI.
 
-The developments are availible here [human.mpi](https://github.com/kennethassogba/human.mpi)
-
-MPI or Message Passing Interface, is a standard for writing parallel programs in a distributed environment. It has become a reference in scientific computing and many legacy computing codes are progressively integrating MPI in view of the move to distributed computing architectures.
+MPI, the Message Passing Interface, is a standard for writing distributed parallel programs. Scientific computing codes use it to communicate between processes, including when adapting existing software to distributed architectures.
 
 ## Problem
 
-The addition of MPI communications within an existing computational code can lead to difficulties in readability and maintainability. This is partly because the physics (or math) + communications code mix is difficult to read. A good way to integrate MPI into existing code can be to encapsulate the MPI functions in a class with a simple interface. This is what Boost::MPI offers, for example.
+Adding MPI calls to existing simulation code can make it harder to read and maintain: the communication code gets mixed with the physics or mathematics. Wrapping the MPI functions in a class keeps those details behind an interface. Boost::MPI takes this approach.
 
 ## Proposal
 
-I have written a header-only interface - so easy to integrate in an existing code - which provides a simpler way to write MPI messages.
-
-This interface handle some of the more complex details of the library thus making it easier for developers to write parallel programs.
-
-In addition it is easier to port existing MPI programs to different platforms or environments, as the wrapper provide a consistent interface that is independent of the underlying implementation of MPI.
+My wrapper is header-only, so it can be included in an existing project. It handles some of the MPI details behind shorter calls. The interface stays the same across underlying MPI implementations, which helps when porting a program to another platform or environment.
 
 ## A simple broadcast example
 
@@ -49,9 +43,9 @@ int main() {
 }
 ```
 
-Here, `msg` is sent to all non-root processes (0 by default). In reality the sending is done in two steps. First the size is broadcasted and the non-root resize the `msg` to the size received. Finally the `msg` content is sent. When the `communicator` instance goes out of scope (e.g., at the end of the `main` function), the destructor will be called, which will finalize the MPI library.
+Here, `msg` is sent from the root process (0 by default) to all other processes. The wrapper first broadcasts the size, so the receiving processes can resize `msg`, then broadcasts the contents of `msg`. When the `communicator` instance goes out of scope, for example at the end of `main`, its destructor finalizes MPI.
 
-The equivalent in pure MPI would be
+Using MPI directly, the equivalent is:
 
 ```cpp
 #include <string>
@@ -87,11 +81,11 @@ int main(int argc, char* argv[]) {
 }
 ```
 
-The line `world.bcast(msg)` turns into at least 4 lines of code.
+The wrapper replaces at least 4 lines with `world.bcast(msg)`.
 
 ## A simple point-to-point communication
 
-Here is an example of how to use the wrapper to `send` a message between two processes.
+This example uses `send` to exchange messages between two processes:
 
 ```cpp
 std::string msg_sent, msg_recv;
@@ -116,8 +110,8 @@ world.recv(msg_recv, other, tag);
 std::cout << "P" << rank << " " << msg_sent << " " << msg_recv << std::endl;
 ```
 
-There should be no deadlock problem as the messages are quite small. In the case of larger messages it is more appropriate to use non-blocking communications.
+With these small messages, I would not expect a deadlock. For larger messages, non-blocking communication is more appropriate.
 
-## Wrapping up
+## Tests and planned work
 
-I have write GitHub Actions to test the code on push and pull request. There is more to do, including writing tests and future developments are listed in the [roadmap](https://github.com/kennethassogba/human.mpi#roadmap).
+GitHub Actions runs the tests on pushes and pull requests. More tests and other planned work are listed in the [roadmap](https://github.com/kennethassogba/human.mpi#roadmap).

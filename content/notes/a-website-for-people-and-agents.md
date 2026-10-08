@@ -6,9 +6,9 @@ description: Markdown pages, WebMCP tools, and content discovery based on Cloudf
 categories: AI & agents
 -->
 
-I'm making this website AI-native, following [Cloudflare's agent-readiness recommendations](https://blog.cloudflare.com/agent-readiness/) and [Double Slash's implementation](https://double-slash.dev/articles/is-it-agent-ready/).
+I want agents to be able to find and read this site. I followed [Cloudflare's agent-readiness recommendations](https://blog.cloudflare.com/agent-readiness/) and [Double Slash's implementation](https://double-slash.dev/articles/is-it-agent-ready/).
 
-For this site, that means an agent can find the content, read it as Markdown, and search the notes and publications. Here's what I added.
+The site now provides Markdown pages, content indexes, and tools to search the notes and publications.
 
 ## Markdown pages
 

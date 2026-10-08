@@ -54,7 +54,7 @@ function SearchDialog({ entries }: { entries: Entry[] }) {
             <span>{entry.title}</span><small>{entry.categories} · {dateLabel(entry.date)}</small>
           </a>) : <p className="muted">No matches. Try a different word.</p>}
         </div>
-        <p className="search-hint">Search stays in your browser. ⌘ / Ctrl K to open, Esc to close.</p>
+        <p className="search-hint">Your search runs in this browser. Open with ⌘ / Ctrl K; close with Esc.</p>
       </DialogContent>
     </Dialog>
   </>;
@@ -195,12 +195,12 @@ function Article({ data }: { data: SiteData }) {
 
 function Agents({ data }: { data: SiteData }) {
   const resources = [
-    ["Start here", "/llms.txt", "A concise map of this site."],
+    ["Start here", "/llms.txt", "Page titles and Markdown links."],
     ["Everything in Markdown", "/llms-full.txt", "Profile, projects, notes, and publications in one file."],
     ["Content index", "/api/content.json", "Titles, topics, dates, URLs, and plain text for local search."],
-    ["Profile", "/api/profile.json", "The same professional information you see on the website."],
+    ["Profile", "/api/profile.json", "My work, projects, and contact details."],
     ["API catalog", "/.well-known/api-catalog", "Read-only APIs and their OpenAPI description."],
-    ["RSS feed", "/feed.xml", "Follow new writing without scraping the page."],
+    ["RSS feed", "/feed.xml", "Subscribe to new notes."],
   ];
   return <article className="agents-page">
     <h1>For agents</h1>

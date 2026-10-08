@@ -6,20 +6,15 @@ description: CMake Dependency Visualization.
 categories: CMake
 -->
 
-# A Journey into CMake Dependency Visualization
+# CMake target dependencies
 
-As software projects grow larger, understanding dependencies between components becomes increasingly challenging. This is especially true for C++ projects using CMake, where target dependencies can quickly become complex. This led me to develop `cmake2graph`, a tool that visualizes CMake target dependencies as directed graphs.
+I built `cmake2graph` to see the dependencies between targets in a CMake project. It reads the CMake files and draws a directed graph, so I can inspect the relationships without following them across files.
 
-## The Problem
+## Why I built it
 
-Working on large C++ codebases, I often encountered these challenges:
+In large C++ codebases, I often had trouble seeing which targets depended on each other. Circular dependencies caused build issues, and complex CMake files made unnecessary dependencies hard to spot.
 
-- Difficulty understanding dependency relationships
-- Circular dependencies causing build issues
-- Complex CMake files with unclear target relationships
-- Hard to spot unnecessary dependencies
-
-## The Solution: cmake2graph
+## How it works
 
 `cmake2graph` is a Python tool that:
 
@@ -29,42 +24,31 @@ Working on large C++ codebases, I often encountered these challenges:
 4. Visualizes the relationships
 5. Provides filtering options
 
-Here's a simple example:
+To generate a graph:
 
 ```bash
 cmake2graph /path/to/project --output deps.png
 ```
 
-## Technical Implementation
+## Implementation
 
-The tool uses several key technologies:
+A custom parser extracts dependencies from the CMake files. I use NetworkX to build and manipulate the graph, and Matplotlib to draw it.
 
-- **NetworkX**: For graph creation and manipulation
-- **Matplotlib**: For visualization
-- **CMake Parser**: Custom implementation to extract dependencies
+### Graph options
 
-### Key Features
+The parser handles nested CMake files. You can filter the graph to specific targets, limit the depth of dependency chains, and export it as PNG, SVG, or PDF. Filtering out external libraries is still unfinished.
 
-- **Recursive Parsing**: Handles nested CMake files
-- **Dependency Filtering**: Focus on specific targets
-- **Depth Control**: Limit dependency chain depth
-- **External Library Filtering**: Focus on project-specific targets
-- **Multiple Output Formats**: Support for PNG, SVG, PDF
+## What needs work
 
-## Lessons Learned
+CMake's flexibility makes parsing difficult. The graph layout also needs to stay readable as projects grow, and processing large projects requires optimization. I want to improve those parts while keeping the tool simple to use.
 
-1. **CMake Complexity**: CMake's flexibility makes parsing challenging
-2. **Graph Layout**: Finding the right balance between aesthetics and clarity
-3. **Performance**: Handling large projects requires optimization
-4. **User Experience**: Balancing features vs. simplicity
+## Planned work
 
-## Future Development
+These features are planned:
 
-Several exciting possibilities lie ahead:
+### Link errors
 
-### 1. Automatic Link Error Resolution
-
-Currently planning to add features that:
+I want the tool to:
 
 - Analyze linking errors
 - Suggest missing dependencies
@@ -82,7 +66,7 @@ target_link_libraries(app
 )
 ```
 
-### 2. CMake File Cleanup
+### CMake file cleanup
 
 Future versions could:
 
@@ -91,18 +75,18 @@ Future versions could:
 - Standardize CMake syntax
 - Enforce modern CMake practices
 
-### 3. Dependency Analysis
+### Dependency analysis
 
-Planning to add:
+I plan to add:
 
 - Cycle detection and breaking
 - Dependency impact analysis
 - Build time optimization suggestions
 - Target visibility recommendations
 
-### 4. Integration Features
+### Integrations
 
-Looking to integrate with:
+I would also like to connect it to:
 
 - IDE plugins
 - CI/CD pipelines
@@ -111,7 +95,7 @@ Looking to integrate with:
 
 ## Contributing
 
-The project is open source and welcomes contributions. Key areas where help is needed:
+The code is open source. Contributions could help with:
 
 - CMake parsing improvements
 - Graph visualization enhancements
@@ -119,11 +103,9 @@ The project is open source and welcomes contributions. Key areas where help is n
 - Test coverage
 - New feature implementation
 
-## Conclusion
+## Current scope
 
-`cmake2graph` started as a simple visualization tool but has grown into a platform for CMake dependency management. While it currently serves its basic purpose well, the potential for growth is significant.
-
-The future roadmap focuses on making C++ dependency management more maintainable, visual, and automated. Whether you're managing a small project or a large codebase, understanding and optimizing dependencies is crucial for maintainable software.
+`cmake2graph` draws target dependencies. The dependency-management features above are planned work.
 
 ## Links
 

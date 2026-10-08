@@ -10,13 +10,13 @@ categories: AI & agents
 
 You describe a situation, talk it through, then get an editable recap. You can keep a few notes for the next session, send the recap by email, or continue in Notion.
 
-I worked with Codex on the development. Here's how the project took shape over September 26 and 27.
+I developed the app with Codex over September 26 and 27.
 
 ## Scaffold
 
-I started by writing down the user flow, the architecture, and the expected behavior during a call. Those documents became the basis for the implementation: how a session starts, what happens when someone asks for time, what gets saved, and which actions need a click from the person using the app.
+I started by writing down the user flow, the architecture, and the expected behavior during a call. They described how a session starts, what happens when someone asks for time, what gets saved, and which actions need a click from the person using the app.
 
-The scaffold was small:
+Here is the project layout:
 
 ```text
 public/          HTML, CSS, and browser JavaScript
@@ -49,7 +49,7 @@ Voice has a separate path. The browser sends its WebRTC offer to the Worker, whi
 
 Transcription supplies the written record. It doesn't control when the voice model answers, and a failed transcription doesn't stop the call. The app saves the received transcript when the call ends; it doesn't record audio files.
 
-## Getting the call to behave properly
+## Turn-taking and interruptions
 
 The first implementation mixed browser timers with Realtime turn-taking. It broke the conversation. I [removed the browser turn controller](https://github.com/kennethassogba/hodge-podge/commit/b6666f83099242b719d0a276ce70700c17412aa8) and let Realtime handle ordinary turns:
 
@@ -70,7 +70,7 @@ I also had to handle incomplete responses. The original 300-token output limit c
 
 Hanging up closes the microphone immediately. Saving the transcript happens afterward, with retries for temporary failures. The app waits for a confirmed save before opening the recap. On mobile, it requests a screen wake lock during the call and releases it afterward. That prevents automatic screen sleep when the browser permits it; it doesn't make the call work with the phone locked.
 
-These were separate changes, each with a specific scenario to reproduce. "Improve the voice experience" would have been too vague to implement or verify.
+I handled each of these changes separately, with a scenario I could reproduce and check after the fix.
 
 ## Recaps and email
 
@@ -102,6 +102,6 @@ The API tests use Miniflare with a real local D1 database and simulated provider
 
 Those tests can check application behavior without spending API credits. They can't tell me whether a spoken exchange sounds right. For that, I added separate scripts that exercise the real Realtime connection with synthetic audio, plus a browser harness that injects audio into the app's WebRTC path.
 
-The development loop was concrete: reproduce a problem, change the relevant behavior with Codex, run the local checks, then try the call again. The scaffold got the app running. Most of the following work was in the parts between model calls: turn-taking, cancellation, saving, retries, and making sure the person's edits were used.
+When a call failed, I reproduced the problem, worked on the fix with Codex, ran the local checks, and tried the call again. After the scaffold, most of my work went into turn-taking, cancellation, saving, retries, and making sure the app used the person's edits.
 
 The [source code](https://github.com/kennethassogba/hodge-podge) includes the [architecture](https://github.com/kennethassogba/hodge-podge/blob/main/docs/architecture.md), [voice behavior](https://github.com/kennethassogba/hodge-podge/blob/main/docs/silence.md), and [recap and email implementation](https://github.com/kennethassogba/hodge-podge/blob/main/docs/apres-bulle.md).

@@ -8,9 +8,7 @@ categories: AI & agents
 
 I work on the compiler for FPGA prototyping at Siemens EDA, mainly on placement and partitioning. I've also started working on netlist qualification, including clock handling.
 
-Alongside that work, I write agent skills and integrate MCP servers into our development workflow.
-
-The skills document the codebase and our engineering practices. A coding agent needs that information to work on an existing project: where to make a change, which constraints matter, and how to test it.
+I also write agent skills that document our codebase and engineering practices, and connect development tools through MCP servers. The skills tell an agent where a change belongs, which constraints it needs to respect, and how to test the result.
 
 ## What goes into a skill
 
@@ -22,11 +20,11 @@ For a development task, a skill should answer:
 - Which checks should run after the change?
 - When is it time to ask a person instead of guessing?
 
-Useful instructions name the relevant subsystem, point to an existing implementation, and give the command for the relevant checks.
+I want the instructions to name the subsystem, point to an existing implementation, and include the command to run the checks.
 
 ## MCP integrations
 
-A skill contains instructions. An MCP server exposes tools. I use skills to explain how to work in the repository, and MCP integrations to connect tools used during development.
+I put instructions for working in the repository in skills. MCP servers give the agent access to development tools.
 
 The instructions should say when to use a tool and how to check its result.
 
