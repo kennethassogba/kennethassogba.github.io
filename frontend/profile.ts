@@ -1,6 +1,10 @@
+import { studio, projectCatalog } from "./projects";
+
 const summary = "I write software that maps large chip designs onto FPGAs so teams can test them before manufacturing. I use AI in my development work, write agent skills, and connect development tools through MCP.";
 
 export const profile = {
+  studio,
+  projectCatalog,
   name: "Kenneth Assogba",
   role: "Software Engineer",
   location: "Sceaux, France",

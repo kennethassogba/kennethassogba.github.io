@@ -89,6 +89,32 @@ main { grid-column: 2; min-width: 0; }
 .work-section .section-heading { position: relative; padding-right: 150px; }
 .work-reference { position: absolute; right: 0; top: -6px; }
 .experiments-section { padding: 0 0 36px; }
+.studio-section { padding-block: var(--space-md) var(--space-xl); }
+.studio-intro { max-width: 65ch; margin: 0; color: var(--color-ink-2); }
+.studio-projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: var(--space-lg); margin-block-start: var(--space-md); }
+.studio-projects article { min-width: 0; }
+.studio-projects h3 { margin: 0 0 var(--space-2xs); }
+.studio-projects .project-title-link { font-size: var(--text-xl); font-weight: 600; }
+.studio-projects article > p:not(.project-area):not(.project-status) { margin: 0; color: var(--color-ink-2); }
+.project-area, .project-status { font-size: var(--text-sm); color: var(--color-muted); margin: 0; }
+.project-status { margin-block-start: var(--space-xs); }
+.all-projects-link { margin-block-start: var(--space-sm); }
+.projects-page { padding-block: 88px var(--space-3xl); }
+.projects-page h1 { font-size: var(--text-title); margin: 0 0 var(--space-md); }
+.projects-page .page-lede { margin-block-end: var(--space-xs); }
+.project-index-nav { display: flex; flex-wrap: wrap; column-gap: var(--space-md); margin-block: var(--space-md) var(--space-xl); padding-block: var(--space-xs); border-block: 1px solid var(--border); }
+.project-index-nav a { white-space: normal; }
+.project-group { margin-block-end: var(--space-xl); }
+.project-group h2 { margin: 0 0 var(--space-sm); scroll-margin-block-start: var(--space-lg); }
+.catalog-list { list-style: none; margin: 0; padding: 0; }
+.catalog-project { display: grid; grid-template-columns: minmax(0, 0.4fr) minmax(0, 1fr); gap: var(--space-lg); padding-block: var(--space-md); border-block-end: 1px solid var(--border); }
+.catalog-project:last-child { border-block-end: 0; }
+.catalog-heading, .catalog-description { min-width: 0; }
+.catalog-heading h3 { margin: 0 0 var(--space-3xs); font-size: var(--text-lg); overflow-wrap: anywhere; }
+.catalog-heading p { margin: 0; font-size: var(--text-sm); color: var(--color-muted); }
+.catalog-description > p { margin: 0; max-width: 65ch; color: var(--color-ink-2); }
+.catalog-description .project-links { margin-block-start: var(--space-2xs); column-gap: var(--space-md); }
+.catalog-description .project-links a { font-size: var(--text-sm); }
 .project-grid { display: grid; grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr); gap: 56px; margin-top: 22px; align-items: start; }
 .project { min-width: 0; }
 .project-1 { padding-left: 56px; border-left: 1px solid var(--border); }
@@ -218,7 +244,7 @@ main { grid-column: 2; min-width: 0; }
 }
 @media (max-width: 880px) {
   .site-shell { display: block; padding-inline: clamp(24px, 5vw, 40px); }
-  .site-header { position: static; min-height: 0; padding: 24px 0; border: 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'identity controls' 'nav controls'; gap: 0 20px; }
+  .site-header { position: static; min-height: 0; padding: 24px 0; border: 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'identity controls' 'nav nav'; gap: 0 20px; }
   .identity { grid-area: identity; font-size: 18px; }
   .site-header nav { grid-area: nav; flex-direction: row; gap: 24px; margin: 0; }
   .site-header nav a { font-size: var(--text-md); }
@@ -233,6 +259,7 @@ main { grid-column: 2; min-width: 0; }
   .project-1 { padding-left: 28px; }
   .project h3 { font-size: var(--text-xl); }
   .document-index, .article-page, .about-page, .agents-page { padding-top: 40px; }
+  .projects-page { padding-block-start: 40px; }
 }
 @media (max-width: 600px) {
   .site-shell { padding-inline: 24px; }
@@ -254,11 +281,14 @@ main { grid-column: 2; min-width: 0; }
   .search-dialog { padding: var(--space-md); }
   .about-heading { align-items: flex-start; gap: var(--space-md); }
   .about-heading img { width: 96px; }
+  .catalog-project { grid-template-columns: minmax(0, 1fr); gap: var(--space-xs); }
 }
 @media (max-width: 360px) {
   .site-shell { padding-inline: 18px; }
   .identity { font-size: var(--text-md); }
   .intro h1 { font-size: 29px; }
+  .site-header { grid-template-areas: 'identity identity' 'nav controls'; column-gap: var(--space-2xs); }
+  .site-header nav { gap: var(--space-sm); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

@@ -17,6 +17,8 @@ test("negotiation respects explicit media types, quality weights and exclusions"
   assert.equal(wantsMarkdown("text/*"), false);
   assert.equal(markdownPath("/notes/a-website-for-people-and-agents.html"), "/notes/a-website-for-people-and-agents/index.md");
   assert.equal(markdownPath("/assets/photo.jpg"), null);
+  assert.equal(markdownPath("/projects.html"), "/projects/index.md");
+  assert.equal(markdownPath("/projects"), "/projects/index.md");
 });
 
 test("HTML and Markdown get correct discovery, MIME and cache headers; HEAD has no body", async () => {
@@ -78,11 +80,39 @@ test("browser tools share actual search and refuse arbitrary fetches", async () 
   assert.ok(found.every((entry: { markdown: string }) => entry.markdown.endsWith("/index.md")));
   const read = tools.find(tool => tool.name === "read_page")!;
   assert.equal(await read.execute({ path: "/about.html" }), "# Read");
+  assert.equal(await read.execute({ path: "/projects.html" }), "# Read");
+  assert.equal(await read.execute({ path: "/projects" }), "# Read");
   await assert.rejects(() => read.execute({ path: "https://example.org/private" }));
   await assert.rejects(() => read.execute({ path: "/notes/../../etc/passwd" }));
   for (const path of ["/constructor", "constructor", "__proto__", "toString"]) await assert.rejects(() => read.execute({ path }));
   await assert.rejects(() => search.execute({ query: "hi", limit: -2 }));
-  assert.deepEqual(reads, ["/about/index.md"]);
+  assert.deepEqual(reads, ["/about/index.md", "/projects/index.md", "/projects/index.md"]);
+});
+
+test("projects are published in HTML, Markdown, JSON and discovery", async () => {
+  const html = await readFile("dist/projects.html", "utf8");
+  const markdown = await readFile("dist/projects/index.md", "utf8");
+  const catalog = JSON.parse(await readFile("dist/api/projects.json", "utf8"));
+  assert.equal(new Set(catalog.projects.map((project: { id: string }) => project.id)).size, catalog.projects.length);
+  assert.ok(catalog.projects.length >= 6);
+  for (const project of catalog.projects) {
+    assert.ok(markdown.includes(project.description), project.id);
+    if (project.url) assert.ok(html.includes(`href="${project.url}"`), project.id);
+    if (project.source) assert.ok(markdown.includes(project.source), project.id);
+  }
+  const pages = JSON.parse(await readFile("dist/api/pages.json", "utf8"));
+  assert.ok(pages.some((page: { path: string; markdown: string }) => page.path === "/projects.html" && page.markdown === "/projects/index.md"));
+  assert.match(await readFile("dist/sitemap.xml", "utf8"), /\/projects\.html/);
+  assert.match(await readFile("dist/llms.txt", "utf8"), /\/projects\/index\.md/);
+  assert.match(await readFile("dist/api/openapi.json", "utf8"), /\/api\/projects\.json/);
+  const structured = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)![1]);
+  assert.equal(structured["@type"], "CollectionPage");
+  for (const match of html.matchAll(/(?:href|src)="([^"#]+)"/g)) {
+    const url = match[1].split(/[?#]/)[0];
+    if (/^(https?:|mailto:|data:)/.test(url)) continue;
+    const target = url === "/" ? "dist/index.html" : `dist/${url.replace(/^\//, "")}`;
+    try { await access(target); } catch { await access(`${target}.html`); }
+  }
 });
 
 test("content parsing rejects unsafe routes and strips executable markup", () => {

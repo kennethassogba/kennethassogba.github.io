@@ -103,3 +103,39 @@ The follow-up color review rejects that reference orange on this page. The
 replacement is `#d94f00` for large type and `#af4100` for small text in light
 mode, with `#ff702c` in dark mode. Tints, focus colors, and the social card
 use the revised palette.
+
+## Studio and project update - 2026-10-10
+
+Kenneth supplied the studio positioning: k_eff is an independent software studio
+focused on scientific computing and engineering tools. The homepage introduces
+the studio after the Siemens work section. Projects also has its own page.
+
+Sources checked for this update:
+
+- The current `kennethassogba/keff.uk` catalogue, `content/projects.json`, lists
+  XS, Forge, mc, La Bulle, Model Card, and AMATA°. It supplies the public app URLs.
+- Current GitHub READMEs for buildray, heat, Demeter, human.mpi,
+  pinn-experiment, cross-section-plot, and ClashRoyaleWarReport.
+- Authenticated reads of the Lattice and dequantization READMEs. These projects
+  have descriptions on the site but no links to private repositories.
+- Forge's current README identifies the browser-based thermal and IR-drop
+  floorplanner. Its repository description still refers to an older FPGA product;
+  that description was not used. The README describes a stationary, uniform
+  2D model, not chip sign-off analysis. The site calls its fields modeled maps.
+
+The app catalogue, tools, and experiments are kept separate. Forks, profile
+configuration, coursework, and repositories without enough information for a
+description are excluded. Existing research notes and publications are unchanged.
+
+Development stages come from the repositories. Buildray currently has a README
+and tooling configuration, without an implementation. Demeter's solver and
+benchmarks remain on its roadmap. mc is presented as a research prototype.
+No new performance, validation, commercial availability, or customer claims
+were added. Each of the seven studio/app URLs returned HTTP 200 on this review.
+
+The new descriptions were drafted from these sources and checked with
+avoid-ai-writing in technical mode. The editable prose went through the straight
+quotes normalizer. The detector reported no candidate patterns; that result is a
+writing check, not proof of authorship or factual accuracy. Source comparison was
+reviewed separately. The existing portrait placement, work metrics, La Bulle
+attribution exception, and publication dates were preserved.

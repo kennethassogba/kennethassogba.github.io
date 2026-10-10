@@ -17,7 +17,7 @@ export function wantsMarkdown(accept: string | null) {
 export function markdownPath(path: string) {
   if (path === "/" || path === "/index.html") return "/index.md";
   const normalized = path.replace(/\.html$/, "").replace(/\/$/, "");
-  if (/^\/(about|notes|agents)$/.test(normalized) || /^\/(notes|publications)\/[a-z0-9-]+$/.test(normalized)) return `${normalized}/index.md`;
+  if (/^\/(about|projects|notes|agents)$/.test(normalized) || /^\/(notes|publications)\/[a-z0-9-]+$/.test(normalized)) return `${normalized}/index.md`;
   return null;
 }
 

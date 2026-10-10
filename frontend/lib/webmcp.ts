@@ -23,12 +23,14 @@ export function createAgentTools(data: SiteData, readMarkdown: (path: string) =>
     },
     {
       name: "read_page", title: "Read a page as Markdown",
-      description: "Read the Markdown of this site's homepage, about page, writing index, agent directory or an existing note/publication. Accepts only a known local page path.",
+      description: "Read the Markdown of this site's homepage, about page, projects, writing index, agent directory or an existing note/publication. Accepts only a known local page path.",
       inputSchema: { type: "object", properties: { path: { type: "string", maxLength: 200 } }, required: ["path"], additionalProperties: false },
       annotations: { readOnlyHint: true },
       execute: async ({ path }) => {
         if (typeof path !== "string" || path.length > 200) throw new Error("A known local page path is required");
         const routes: Record<string, string> = { "/": "/index.md", "/index.html": "/index.md", "/about.html": "/about/index.md", "/notes.html": "/notes/index.md", "/agents.html": "/agents/index.md" };
+        routes["/projects.html"] = "/projects/index.md";
+        routes["/projects"] = "/projects/index.md";
         for (const entry of data.entries) {
           routes[`/${entry.slug}`] = `/${entry.slug}/index.md`;
           routes[`/${entry.slug}.html`] = `/${entry.slug}/index.md`;

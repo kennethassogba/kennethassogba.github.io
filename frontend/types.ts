@@ -17,7 +17,7 @@ export type Entry = {
 
 export type Page = {
   route: string;
-  type: "home" | "about" | "notes" | "agents" | "article" | "404";
+  type: "home" | "about" | "projects" | "notes" | "agents" | "article" | "404";
   title: string;
   description: string;
   markdownUrl: string;
