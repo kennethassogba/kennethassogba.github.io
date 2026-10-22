@@ -23,7 +23,7 @@ const json = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
 const pages: Page[] = [
   { route: "/", type: "home", title: "Kenneth Assogba - Software engineer at Siemens EDA", description: profile.intro, markdownUrl: "/index.md" },
   { route: "/about.html", type: "about", title: "About - Kenneth Assogba", description: "FPGA prototyping, placement and partitioning, netlist qualification, and AI-assisted development.", markdownUrl: "/about/index.md" },
-  { route: "/projects.html", type: "projects", title: "Projects - Kenneth Assogba", description: "Buildray, k_eff, and my contributions to Google Highway and SentencePiece.", markdownUrl: "/projects/index.md" },
+  { route: "/projects.html", type: "projects", title: "Projects - Kenneth Assogba", description: "Buildray, k_eff, and my contributions to Google/Highway and Google/SentencePiece.", markdownUrl: "/projects/index.md" },
   { route: "/notes.html", type: "notes", title: "Notes - Kenneth Assogba", description: "Notes on AI-assisted engineering, agent skills, developer tools, and C++.", markdownUrl: "/notes/index.md" },
   { route: "/agents.html", type: "agents", title: "For agents - Kenneth Assogba", description: "Markdown, a content index, read-only APIs, and experimental WebMCP tools.", markdownUrl: "/agents/index.md" },
   ...entries.map(entry => ({ route: `/${entry.slug}`, type: "article" as const, title: `${entry.title} - Kenneth Assogba`, description: entry.description, markdownUrl: `/${entry.slug}/index.md`, entry })),

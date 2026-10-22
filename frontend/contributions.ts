@@ -1,6 +1,6 @@
 export const contributions = [
   {
-    name: "Google Highway",
+    name: "Google/Highway",
     url: "https://github.com/google/highway",
     description: "Removed unused test-library dependencies and fixed a standalone test's link error.",
     pullRequests: [
@@ -9,9 +9,9 @@ export const contributions = [
     ],
   },
   {
-    name: "Google SentencePiece",
+    name: "Google/SentencePiece",
     url: "https://github.com/google/sentencepiece",
-    description: "Removed two unused C++ includes.",
+    description: "Clean includes",
     pullRequests: [
       { number: 1350, url: "https://github.com/google/sentencepiece/pull/1350", mergedAt: "2026-10-19T16:06:16Z" },
     ],
