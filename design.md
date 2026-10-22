@@ -33,6 +33,17 @@ names. List links use compact targets of at least 32px; inline prose links use
 the native inline-link exception. Keyboard focus has a solid 2px outline with a
 4px offset, including on shadcn controls. No decorative animation.
 
+Project and contribution descriptions are 15px with a 24px line height. Keep
+Buildray's source link next to its name; group PR links with their repository
+heading, stacking below it on narrow screens. Projects have unframed monochrome
+marks: Buildray's existing chart symbol and k_eff's existing mathematical
+wordmark. The wordmark retains its original italic serif lettering as a brand
+asset; interface text remains Geist. Marks are decorative and hidden from
+assistive technology because the adjacent link names the project.
+
+Text and underline colors transition over 120ms. Keep focus indicators immediate
+and disable transitions for reduced motion.
+
 Use the existing shadcn Dialog, Button, Input, Badge, and Separator. Keep search
 local, preserve keyboard shortcuts and focus restoration, and contain scrolling
 inside the search results. Homepage note rows link to the full article; Notes

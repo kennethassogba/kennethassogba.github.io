@@ -90,8 +90,13 @@ function NoteRow({ entry }: { entry: Entry }) {
 function ProjectList({ level = 3 }: { level?: 2 | 3 }) {
   const Heading = level === 2 ? "h2" : "h3";
   return <ul className="project-list">{projectCatalog.map(project => <li className="project-item" key={project.id}>
-    <div className="project-item-heading"><Heading><a href={project.url}>{project.name}</a></Heading>{project.source && <a className="project-source" href={project.source} aria-label={`${project.name} on GitHub`}>GitHub</a>}</div>
-    <p>{project.description}</p>
+    <span className="project-mark" aria-hidden="true">{project.id === "buildray"
+      ? <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 4v16h16" stroke="currentColor" strokeWidth="2" /><path d="M8 15V8m5 7v-4m5 4V5" stroke="currentColor" strokeWidth="2.5" /></svg>
+      : <span className="keff-wordmark">k<sub>eff</sub></span>}</span>
+    <div className="project-item-content">
+      <div className="project-item-heading"><Heading><a href={project.url}>{project.name}</a></Heading>{project.source && <a className="project-source" href={project.source} aria-label={`${project.name} on GitHub`}>GitHub</a>}</div>
+      <p>{project.description}</p>
+    </div>
   </li>)}</ul>;
 }
 
@@ -99,9 +104,11 @@ function OpenSource() {
   return <section className="home-section" aria-labelledby="open-source-title">
     <h2 id="open-source-title">Open source</h2>
     <ul className="contribution-list">{contributions.map(contribution => <li key={contribution.name}>
-      <h3><a href={contribution.url}>{contribution.name}</a></h3>
+      <div className="contribution-heading">
+        <h3><a href={contribution.url}>{contribution.name}</a></h3>
+        <div className="contribution-links">{contribution.pullRequests.map(pr => <a href={pr.url} key={pr.number} aria-label={`${contribution.name} pull request #${pr.number}`}>#{pr.number}</a>)}</div>
+      </div>
       <p>{contribution.description}</p>
-      <div className="contribution-links">{contribution.pullRequests.map(pr => <a href={pr.url} key={pr.number} aria-label={`${contribution.name} pull request #${pr.number}`}>#{pr.number}</a>)}</div>
     </li>)}</ul>
   </section>;
 }
