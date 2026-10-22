@@ -139,3 +139,40 @@ quotes normalizer. The detector reported no candidate patterns; that result is a
 writing check, not proof of authorship or factual accuracy. Source comparison was
 reviewed separately. The existing portrait placement, work metrics, La Bulle
 attribution exception, and publication dates were preserved.
+
+
+## Simplified site and open source - 2026-10-22
+
+Kenneth requested a simpler site, using https://jakub.kr/ as a visual reference,
+and only two project entries: Buildray and k_eff. The other applications are
+represented by the studio link. The old standalone project inventory was removed
+from the interface and project exports. Existing article content is preserved.
+
+The reference was inspected in the browser. Its narrow reading column, modest
+headings and text lists informed the layout. No copy or assets were copied.
+Kenneth's white-background and sans-serif preferences govern the theme.
+
+The current profile README at
+https://github.com/kennethassogba/kennethassogba/blob/main/README.md
+(blob `7df0f3bce703e51c0015b86f20225cdeea2fb9fd`) lists contributions to
+Google Highway and Google SentencePiece. GitHub's pull-request API independently
+confirmed all three authors as `kennethassogba` and all three PRs as merged:
+
+- Highway #3502: avoid unused static-library links in the GoogleTest build;
+  merged 2026-10-21. https://github.com/google/highway/pull/3502
+- Highway #3497: fix the standalone iguana_test build; merged 2026-10-19.
+  https://github.com/google/highway/pull/3497
+- SentencePiece #1350: remove two unused includes; merged 2026-10-19.
+  https://github.com/google/sentencepiece/pull/1350
+
+The current Buildray README (blob
+`829f7a132acf2cfafa4f47baed75447d58762045`) describes an implemented tool for
+measuring C++ builds and testing include/dependency cleanup in isolated copies.
+The earlier Planning label is obsolete and was removed. No speedup figure or
+claim about untested project configurations was added. The homepage links to
+https://kennethassogba.github.io/buildray/ and its public repository. Both links
+and https://keff.uk/ returned HTTP 200 during verification.
+
+The shorter biography uses the current profile README and previously verified
+Siemens/CEA information. Work metrics, technical work details, portrait, dates,
+research abstracts and code examples retain their existing source records.

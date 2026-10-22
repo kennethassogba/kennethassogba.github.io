@@ -1,27 +1,22 @@
-/* Hallmark · pre-emit critique: P5 H4 E4 S5 R5 V4
- * genre: modern-minimal · macrostructure: personal workshop + Long Document
- * theme: custom · neutral surfaces / muted lavender · design-system: design.md · designed-as-app
- * nav: N9 Edge-aligned minimal · footer: Ft2 Inline single line */
 :root {
   color-scheme: light;
-  --color-paper: oklch(98.5% 0.005 285);
-  --color-paper-2: oklch(96.5% 0.005 285);
-  --color-ink: oklch(23% 0.018 280);
-  --color-ink-2: oklch(39% 0.012 270);
-  --color-muted: oklch(44% 0.011 270);
-  --color-rule: oklch(86% 0.01 280);
-  --color-accent: oklch(50% 0.095 285);
+  --color-paper: oklch(100% 0 0);
+  --color-paper-2: oklch(97% 0 0);
+  --color-ink: oklch(24% 0 0);
+  --color-ink-2: oklch(35% 0 0);
+  --color-muted: oklch(48% 0 0);
+  --color-rule: oklch(90% 0 0);
+  --color-accent: oklch(30% 0 0);
   --color-accent-text: var(--color-accent);
   --color-accent-ink: var(--color-paper);
-  --color-lavender: oklch(96% 0.018 285);
-  --color-focus: oklch(48% 0.15 285);
-  --color-accent-soft: var(--color-lavender);
-  --color-project-surface: var(--color-lavender);
-  --color-link-rule: oklch(66% 0.03 285);
-  --color-control-rule: oklch(61% 0.02 280);
+  --color-selection: oklch(93% 0 0);
+  --color-focus: oklch(50% 0 0);
+  --color-accent-soft: var(--color-selection);
+  --color-link-rule: oklch(67% 0 0);
+  --color-control-rule: oklch(60% 0 0);
   --color-code-string: var(--color-ink-2);
   --color-error: oklch(47% 0.16 25);
-  --color-overlay: oklch(23% 0.032 280 / 0.35);
+  --color-overlay: oklch(24% 0 0 / 0.35);
   --font-display: 'Geist Variable', sans-serif;
   --font-body: 'Geist Variable', sans-serif;
   --font-outlier: 'Geist Mono Variable', monospace;
@@ -40,7 +35,7 @@
   --text-lg: 1.125rem;
   --text-xl: 1.5rem;
   --text-display: clamp(2.25rem, 5vw, 3.5rem);
-  --text-title: clamp(2rem, 5vw, 3rem);
+  --text-title: clamp(1.75rem, 4vw, 2rem);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
@@ -69,18 +64,18 @@
 }
 .dark {
   color-scheme: dark;
-  --color-paper: oklch(19% 0.022 280);
-  --color-paper-2: oklch(23% 0.026 280);
-  --color-ink: oklch(95% 0.012 285);
-  --color-ink-2: oklch(85% 0.022 285);
-  --color-muted: oklch(76% 0.025 285);
-  --color-rule: oklch(42% 0.036 280);
-  --color-accent: oklch(82% 0.05 285);
+  --color-paper: oklch(19% 0 0);
+  --color-paper-2: oklch(26% 0 0);
+  --color-ink: oklch(95% 0 0);
+  --color-ink-2: oklch(85% 0 0);
+  --color-muted: oklch(74% 0 0);
+  --color-rule: oklch(42% 0 0);
+  --color-accent: oklch(90% 0 0);
   --color-accent-ink: var(--color-paper);
-  --color-lavender: oklch(29% 0.025 285);
-  --color-focus: oklch(85% 0.065 280);
-  --color-link-rule: oklch(72% 0.04 285);
-  --color-control-rule: oklch(64% 0.045 280);
+  --color-selection: oklch(32% 0 0);
+  --color-focus: oklch(85% 0 0);
+  --color-link-rule: oklch(65% 0 0);
+  --color-control-rule: oklch(64% 0 0);
   --color-error: oklch(80% 0.12 25);
-  --color-overlay: oklch(19% 0.022 280 / 0.7);
+  --color-overlay: oklch(19% 0 0 / 0.7);
 }

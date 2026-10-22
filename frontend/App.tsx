@@ -6,7 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { profile } from "./profile";
-import { studio, projectCatalog, type Project } from "./projects";
+import { studio, projectCatalog } from "./projects";
+import { contributions } from "./contributions";
 import { entryTopics, filterByTopic, searchEntries } from "./lib/content";
 import type { Entry, SiteData } from "./types";
 
@@ -67,17 +68,12 @@ function MarkdownLink({ url }: { url: string }) {
 
 function Header({ data }: { data: SiteData }) {
   return <header className="site-header">
-    <a className="identity" href="/" aria-label="Kenneth Assogba, home"><span>Kenneth Assogba.</span></a>
     <nav aria-label="Main navigation">
-      <a href="/projects.html" aria-current={data.page.type === "projects" ? "page" : undefined}>Projects</a>
+      {data.page.type !== "home" && <a href="/">Home</a>}
       <a href="/notes.html" aria-current={data.page.type === "notes" ? "page" : data.page.entry?.kind === "note" ? "location" : undefined}>Notes</a>
       <a href="/about.html" aria-current={data.page.type === "about" ? "page" : undefined}>About</a>
     </nav>
-    <p className="sidebar-location">{profile.location}</p>
-    <div className="sidebar-controls">
-      <SearchDialog entries={data.entries} />
-      <ThemeButton />
-    </div>
+    <div className="site-controls"><SearchDialog entries={data.entries} /><ThemeButton /></div>
   </header>;
 }
 
@@ -91,87 +87,45 @@ function NoteRow({ entry }: { entry: Entry }) {
   </li>;
 }
 
+function ProjectList({ level = 3 }: { level?: 2 | 3 }) {
+  const Heading = level === 2 ? "h2" : "h3";
+  return <ul className="project-list">{projectCatalog.map(project => <li className="project-item" key={project.id}>
+    <div className="project-item-heading"><Heading><a href={project.url}>{project.name}</a></Heading>{project.source && <a className="project-source" href={project.source} aria-label={`${project.name} on GitHub`}>GitHub</a>}</div>
+    <p>{project.description}</p>
+  </li>)}</ul>;
+}
+
+function OpenSource() {
+  return <section className="home-section" aria-labelledby="open-source-title">
+    <h2 id="open-source-title">Open source</h2>
+    <ul className="contribution-list">{contributions.map(contribution => <li key={contribution.name}>
+      <h3><a href={contribution.url}>{contribution.name}</a></h3>
+      <p>{contribution.description}</p>
+      <div className="contribution-links">{contribution.pullRequests.map(pr => <a href={pr.url} key={pr.number} aria-label={`${contribution.name} pull request #${pr.number}`}>#{pr.number}</a>)}</div>
+    </li>)}</ul>
+  </section>;
+}
+
 function Home({ data }: { data: SiteData }) {
-  const notes = data.entries.filter(e => e.kind === "note" && !e.draft).slice(0, 3);
+  const notes = data.entries.filter(entry => entry.kind === "note" && !entry.draft).slice(0, 3);
   return <>
     <section className="intro" aria-labelledby="intro-title">
-      <p className="hello">Hey, I'm Kenneth.</p>
-      <h1 id="intro-title">Software engineer<br /><span>at Siemens EDA.</span></h1>
-      <p className="intro-copy">{profile.summary}</p>
-      <ul className="focus-tags" aria-label="Engineering focus">{profile.focus.map(focus => <li key={focus}>{focus}</li>)}</ul>
+      <h1 id="intro-title">{profile.name}</h1>
+      <p className="intro-role">Software engineer at Siemens EDA</p>
+      <p>{profile.shortBio}</p>
+      <p>{profile.background}</p>
     </section>
-
-    <section id="work" className="work-section" aria-labelledby="work-title">
-      <div className="section-heading"><h2 id="work-title">Work at Siemens EDA</h2><a className="quiet-link work-reference" href={profile.prototypingArticle}>Veloce proFPGA CS</a></div>
-      <div className="work-list">{profile.work.slice(0, 3).map(item => <div className="work-line" key={item.label}><h3>{item.label}</h3><p>{item.text}</p></div>)}</div>
-    </section>
-
-    <section className="studio-section" aria-labelledby="studio-title">
-      <div className="section-heading"><h2 id="studio-title">{studio.name}</h2><a className="quiet-link" href={studio.url}>Visit the studio</a></div>
-      <p className="studio-intro">{studio.description}</p>
-      <div className="studio-projects">{projectCatalog.filter(project => project.group === "scientific").map(project => <article key={project.id}>
-        <p className="project-area">{project.area}</p>
-        <h3><a className="quiet-link project-title-link" href={project.url}>{project.name}</a></h3>
-        <p>{project.description}</p>
-        {project.status && <p className="project-status">{project.status}</p>}
-      </article>)}</div>
-      <a className="quiet-link all-projects-link" href="/projects.html">All projects</a>
-    </section>
-
-    <section className="experiments-section" aria-labelledby="experiments-title">
-      <div className="section-heading"><h2 id="experiments-title">Personal projects</h2></div>
-      <div className="project-grid">
-        {profile.projects.slice(0, 2).map((project, i) => <article className={`project project-${i}`} key={project.name}>
-          <div className="project-heading"><h3>{project.name}</h3></div>
-          <p>{project.description}</p>
-          {project.details && <dl className="project-details">{project.details.map(detail => <div key={detail.label}><dt>{detail.label}</dt><dd>{detail.text}</dd></div>)}</dl>}
-          <div className="project-links"><a className="quiet-link" href={project.demo}>{i === 0 ? "Try La Bulle" : "For agents"}</a><a className="quiet-link" aria-label={`How I built ${i === 0 ? "La Bulle" : "this website"}`} href={i === 0 ? "/notes/building-la-bulle" : project.url}>How I built it</a>{i === 0 && <a className="quiet-link" href={profile.hackathonUrl}>X-IA hackathon</a>}</div>
-        </article>)}
-      </div>
-      <div className="tool-row"><a className="quiet-link" href={profile.projects[2].url}>cmake2graph</a><p>{profile.projects[2].description}</p></div>
-    </section>
-
-    <section className="writing-section" aria-labelledby="writing-title">
+    <section className="home-section" aria-labelledby="projects-title"><h2 id="projects-title">Projects</h2><ProjectList /></section>
+    <OpenSource />
+    <section className="home-section" aria-labelledby="writing-title">
       <div className="section-heading"><h2 id="writing-title">Notes</h2><a className="quiet-link" href="/notes.html">All notes</a></div>
-      <ul className="note-list">{notes.map(entry => <NoteRow key={entry.slug} entry={entry} />)}</ul>
+      <ul className="compact-notes">{notes.map(entry => <li key={entry.slug}><a href={`/${entry.slug}`}>{entry.title}</a><time dateTime={entry.date}>{dateLabel(entry.date)}</time></li>)}</ul>
     </section>
-
-    <section className="contact-section"><p>Contact</p><a className="action-link" href={`mailto:${profile.email}`}>Say hello</a></section>
   </>;
 }
 
-function ProjectLinks({ project }: { project: Project }) {
-  if (!project.url && !project.source) return null;
-  return <div className="project-links">
-    {project.url && <a className="quiet-link" href={project.url} aria-label={`Open project: ${project.name}`}>Open project</a>}
-    {project.source && <a className="quiet-link" href={project.source} aria-label={`Source on GitHub: ${project.name}`}>Source on GitHub</a>}
-    {project.id === "bulle" && <a className="quiet-link" href="/notes/building-la-bulle">How I built La Bulle</a>}
-  </div>;
-}
-
 function Projects({ data }: { data: SiteData }) {
-  const groups = [
-    { id: "scientific", title: "Scientific computing & engineering" },
-    { id: "experiences", title: "Apps & websites" },
-    { id: "developer", title: "Developer tools" },
-    { id: "experiments", title: "Research & experiments" },
-    { id: "utilities", title: "Other tools" },
-  ];
-  const website = profile.projects.find(project => project.name === "This website")!;
-  return <article className="projects-page">
-    <h1>Projects</h1>
-    <p className="page-lede">{studio.description} My projects also include developer tools, apps, and research experiments.</p>
-    <a className="quiet-link studio-site-link" href={studio.url}>Visit {studio.name}</a>
-    <nav className="project-index-nav" aria-label="Project categories">{groups.map(group => <a className="quiet-link" key={group.id} href={`/projects.html#${group.id}`}>{group.title}</a>)}</nav>
-    {groups.map(group => <section className="project-group" key={group.id} aria-labelledby={group.id}>
-      <h2 id={group.id}>{group.title}</h2>
-      <ul className="catalog-list">{projectCatalog.filter(project => project.group === group.id).map(project => <li className="catalog-project" key={project.id}>
-        <div className="catalog-heading"><h3>{project.name}</h3><p>{project.area}{project.status && ` / ${project.status}`}</p></div>
-        <div className="catalog-description"><p>{project.description}</p><ProjectLinks project={project} /></div>
-      </li>)}{group.id === "experiences" && <li className="catalog-project"><div className="catalog-heading"><h3>{website.name}</h3><p>Personal website</p></div><div className="catalog-description"><p>{website.description}</p><div className="project-links"><a className="quiet-link" href={website.url}>How I built this website</a><a className="quiet-link" href={website.demo}>For agents</a></div></div></li>}</ul>
-    </section>)}
-    <MarkdownLink url={data.page.markdownUrl} />
-  </article>;
+  return <article className="projects-page"><h1>Projects</h1><ProjectList level={2} /><OpenSource /><MarkdownLink url={data.page.markdownUrl} /></article>;
 }
 
 function Writing({ data }: { data: SiteData }) {
@@ -202,7 +156,7 @@ function About({ data }: { data: SiteData }) {
       <h2>AI-assisted development</h2>
       <p>{profile.work[3].text}</p>
       <h2>{studio.name}</h2>
-      <p>{studio.description} I'm working on nuclear-data tools, neutron-transport calculations, and IC floorplanning.</p>
+      <p>{studio.description}</p>
       <p><a href={studio.url}>Visit {studio.name}</a> or <a href="/projects.html">see all my projects</a>.</p>
       <h2>Experience</h2>
       <p>Before Siemens, I built simulation software at CEA during my PhD in Applied Mathematics at École polytechnique.</p>
@@ -273,5 +227,5 @@ function Agents({ data }: { data: SiteData }) {
 }
 
 export function App({ data }: { data: SiteData }) {
-  return <div className="site-shell"><a className="skip-link" href={`${data.page.route}#main`}>Skip to content</a><Header data={data} /><main id="main">{data.page.type === "home" ? <Home data={data} /> : data.page.type === "about" ? <About data={data} /> : data.page.type === "projects" ? <Projects data={data} /> : data.page.type === "notes" ? <Writing data={data} /> : data.page.type === "agents" ? <Agents data={data} /> : data.page.type === "article" ? <Article data={data} /> : <section className="not-found"><h1>Page not found</h1><p>This page doesn't exist.</p><Button asChild><a href="/">Back home</a></Button></section>}</main><footer className="site-footer"><span>{profile.name}</span><div><a href={profile.github}>GitHub</a><a href={profile.linkedin}>LinkedIn</a><a href="/agents.html">For agents</a></div></footer></div>;
+  return <div className="site-shell"><a className="skip-link" href={`${data.page.route}#main`}>Skip to content</a><Header data={data} /><main id="main">{data.page.type === "home" ? <Home data={data} /> : data.page.type === "about" ? <About data={data} /> : data.page.type === "projects" ? <Projects data={data} /> : data.page.type === "notes" ? <Writing data={data} /> : data.page.type === "agents" ? <Agents data={data} /> : data.page.type === "article" ? <Article data={data} /> : <section className="not-found"><h1>Page not found</h1><p>This page doesn't exist.</p><Button asChild><a href="/">Back home</a></Button></section>}</main><footer className="site-footer"><div><a href={`mailto:${profile.email}`}>Email</a><a href={profile.github}>GitHub</a><a href={profile.linkedin}>LinkedIn</a></div><div><a href="/feed.xml">RSS</a><a href="/agents.html">For agents</a></div></footer></div>;
 }

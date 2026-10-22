@@ -23,7 +23,7 @@ const json = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
 const pages: Page[] = [
   { route: "/", type: "home", title: "Kenneth Assogba - Software engineer at Siemens EDA", description: profile.intro, markdownUrl: "/index.md" },
   { route: "/about.html", type: "about", title: "About - Kenneth Assogba", description: "FPGA prototyping, placement and partitioning, netlist qualification, and AI-assisted development.", markdownUrl: "/about/index.md" },
-  { route: "/projects.html", type: "projects", title: "Projects - Kenneth Assogba", description: "k_eff, my independent software studio, plus scientific computing projects, engineering tools, apps, and experiments.", markdownUrl: "/projects/index.md" },
+  { route: "/projects.html", type: "projects", title: "Projects - Kenneth Assogba", description: "Buildray, k_eff, and my contributions to Google Highway and SentencePiece.", markdownUrl: "/projects/index.md" },
   { route: "/notes.html", type: "notes", title: "Notes - Kenneth Assogba", description: "Notes on AI-assisted engineering, agent skills, developer tools, and C++.", markdownUrl: "/notes/index.md" },
   { route: "/agents.html", type: "agents", title: "For agents - Kenneth Assogba", description: "Markdown, a content index, read-only APIs, and experimental WebMCP tools.", markdownUrl: "/agents/index.md" },
   ...entries.map(entry => ({ route: `/${entry.slug}`, type: "article" as const, title: `${entry.title} - Kenneth Assogba`, description: entry.description, markdownUrl: `/${entry.slug}/index.md`, entry })),
@@ -51,12 +51,12 @@ turndown.addRule("absoluteLinks", {
   filter: "a",
   replacement: (content, node) => {
     const href = node.getAttribute("href");
-    const spaced = node.parentElement?.classList.contains("project-links") || node.parentElement?.classList.contains("project-index-nav");
+    const spaced = node.parentElement?.classList.contains("project-links") || node.parentElement?.classList.contains("contribution-links");
     return href ? `[${content}](${new URL(href, `${origin}/`).href})${spaced ? " " : ""}` : content;
   },
 });
 const markdownPages: { route: string; markdownUrl: string; title: string; text: string }[] = [];
-const themeScript = `try{const t=localStorage.getItem('theme');if(t==='dark'||(!t&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark')}catch{}`;
+const themeScript = `try{const t=localStorage.getItem('theme');if(t==='dark')document.documentElement.classList.add('dark')}catch{}`;
 
 for (const page of pages) {
   const data: SiteData = { origin, page, entries };
@@ -88,8 +88,8 @@ await output("llms.txt", `# Kenneth Assogba\n\n> Software engineer at Siemens ED
 await output("llms-full.txt", markdownPages.filter(page => page.route !== "/404.html").map(page => page.text).join("\n\n---\n\n"));
 const index = entries.map(({ html: _html, markdown: _markdown, ...entry }) => ({ ...entry, url: `${origin}/${entry.slug}`, markdownUrl: `${origin}/${entry.slug}/index.md` }));
 await output("api/content.json", JSON.stringify({ version: 1, entries: index }, null, 2));
-await output("api/profile.json", JSON.stringify({ ...profile, source: profile.linkedin, reviewed: "2026-10-05" }, null, 2));
-await output("api/projects.json", JSON.stringify({ studio: profile.studio, projects: profile.projectCatalog, reviewed: "2026-10-10", source: [profile.studio.url, profile.github] }, null, 2));
+await output("api/profile.json", JSON.stringify({ ...profile, source: profile.linkedin, reviewed: "2026-10-05", projectsReviewed: "2026-10-22", projectSources: [profile.studio.url, "https://github.com/kennethassogba/buildray/blob/main/README.md"], contributionsSource: "https://github.com/kennethassogba/kennethassogba/blob/main/README.md" }, null, 2));
+await output("api/projects.json", JSON.stringify({ studio: profile.studio, projects: profile.projectCatalog, contributions: profile.contributions, reviewed: "2026-10-22", source: [profile.studio.url, "https://github.com/kennethassogba/buildray/blob/main/README.md", "https://github.com/kennethassogba/kennethassogba/blob/main/README.md"] }, null, 2));
 await output("api/pages.json", JSON.stringify(publicPages.map(page => ({ path: page.route, title: page.title, markdown: page.markdownUrl }))));
 await output("api/openapi.json", JSON.stringify({ openapi: "3.1.0", info: { title: "Kenneth's public content", version: "1.0.0", description: "Static read-only content APIs. Search client-side over the returned text. No authentication or write operations." }, servers: [{ url: origin }], paths: Object.fromEntries(["content", "profile", "projects", "pages"].map(name => [`/api/${name}.json`, { get: { operationId: `get_${name}`, summary: `Read public ${name}`, responses: { "200": { description: "Public data", content: { "application/json": { schema: { type: name === "pages" ? "array" : "object" } } } } } } }])) }, null, 2));
 await output(".well-known/api-catalog", JSON.stringify({ linkset: [{ anchor: `${origin}/api/`, "service-desc": [{ href: `${origin}/api/openapi.json`, type: "application/vnd.oai.openapi+json" }], "service-doc": [{ href: `${origin}/agents.html`, type: "text/html" }], describedby: [{ href: `${origin}/llms.txt`, type: "text/plain" }] }] }, null, 2));
@@ -106,6 +106,6 @@ function socialColor(name: string) {
   const rgb = [4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s, -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s, -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s];
   return `#${rgb.map(channel => Math.round(255 * Math.max(0, Math.min(1, channel <= 0.0031308 ? 12.92 * channel : 1.055 * channel ** (1 / 2.4) - 0.055))).toString(16).padStart(2, "0")).join("")}`;
 }
-await output("assets/meta/open-graph-card.svg", `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="${socialColor("--color-paper")}"/><rect x="64" y="174" width="1072" height="278" rx="32" fill="${socialColor("--color-lavender")}"/><text x="100" y="120" font-family="sans-serif" font-size="28" fill="${socialColor("--color-ink")}">Kenneth Assogba</text><text x="100" y="282" font-family="sans-serif" font-size="68" fill="${socialColor("--color-ink")}">Software engineer.</text><text x="100" y="376" font-family="sans-serif" font-size="68" fill="${socialColor("--color-accent")}">at Siemens EDA.</text><rect x="100" y="500" width="170" height="48" rx="24" fill="${socialColor("--color-paper-2")}"/><rect x="286" y="500" width="224" height="48" rx="24" fill="${socialColor("--color-paper-2")}"/><rect x="526" y="500" width="330" height="48" rx="24" fill="${socialColor("--color-paper-2")}"/><g font-family="sans-serif" font-size="21" fill="${socialColor("--color-ink")}"><text x="120" y="531">C++ · Python</text><text x="306" y="531">FPGA prototyping</text><text x="546" y="531">AI-assisted development</text></g></svg>`);
+await output("assets/meta/open-graph-card.svg", `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="${socialColor("--color-paper")}"/><text x="80" y="210" font-family="sans-serif" font-size="58" fill="${socialColor("--color-ink")}">Kenneth Assogba</text><text x="80" y="282" font-family="sans-serif" font-size="30" fill="${socialColor("--color-ink-2")}">Software engineer at Siemens EDA</text><text x="80" y="426" font-family="sans-serif" font-size="26" fill="${socialColor("--color-ink")}">Buildray / k_eff</text><text x="80" y="538" font-family="sans-serif" font-size="22" fill="${socialColor("--color-muted")}">kennethassogba.github.io</text></svg>`);
 await sharp(await readFile("dist/assets/meta/open-graph-card.svg")).png().toFile("dist/assets/meta/open-graph-card.png");
 console.log(`Built ${pages.length} HTML pages, matching Markdown, RSS, sitemap and content APIs.`);

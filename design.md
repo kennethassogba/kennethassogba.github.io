@@ -1,158 +1,49 @@
-# Kenneth's technical profile
+# Kenneth's personal website
 
-Modern, restrained, soft and informal. A personal place to show actual engineering,
-experiments and writing. SF is the visual reference, not a claim about location.
-Kenneth lives in Sceaux, France.
+## Direction
 
-## Structure
+A narrow, readable personal site, informed by https://jakub.kr/.
+Use one 640px column, white by default, with sans-serif typography and generous
+space between sections. No sidebar, display-sized employer headline, decorative
+cards, arrows, gradients, or generated imagery.
 
-- Home: a left rail with name, navigation and location. The main column opens
-  with the current role at Siemens EDA, followed by precise compiler work,
-  k_eff and its three scientific applications,
-  personal projects and recent notes. Flat project sections use hairline
-  dividers. La Bulle gets the larger area and retains its product details.
-- Desktop: the rail stays visible while reading. On smaller screens it becomes
-  a compact header with navigation and controls.
-- About: Long Document, with the portrait beside the introduction, a compact
-  work history and research links. The portrait appears only on About.
-- Projects: grouped lists of scientific applications, apps, developer tools,
-  research experiments and utilities. Show the development stage when relevant.
-  Link to public applications and public repositories; omit private source links.
-  Use flat rows, wrapping text and category anchors rather than cards or filters.
-- Writing: chronological reading list with topics and honest draft labels.
-- Articles: Long Document with a narrow measure, stable headings and code.
-  Longer articles include linked section headings before the body.
-- For agents: a useful resource directory, not a score dashboard.
+Geist remains the body and heading face; Geist Mono is reserved for code and
+technical metadata. The body is 16px with a unitless line height. Homepage section
+headings are small; hierarchy comes from weight and spacing. `tokens.css` owns
+the colors, type sizes, and spacing. The palette is neutral, with an explicit dark
+mode and a red error token. Never introduce green or lime without a user request.
 
-## Theme and typography
+## Content
 
-Neutral paper and dark ink, with one muted lavender accent for links and the
-employer headline. Project sections use the page background. Geist display and body; Geist Mono for dates,
-code and file formats. Roman headings, tight tracking, purposeful spacing.
-`tokens.css` is authoritative and applies across all pages and dark mode.
-Fonts are self-hosted. Social previews read the same palette from `tokens.css`.
+Home has a short introduction, two projects, open-source contributions, and recent
+notes. Buildray links to its guide and public source. k_eff links to the studio,
+which contains the other projects. Do not expand the old project inventory here.
+The existing Projects URL shows the same two entries for bookmarked and agent
+access. JSON, Markdown, and structured data use the same curated list.
+
+Detailed Siemens work, career history, publications, and the portrait belong on
+About. The portrait appears only there. Articles retain their content, dates,
+technical examples, and attribution.
 
 ## Interaction
 
-shadcn/ui Button, Badge, Dialog, Input and Separator from the official registry.
-Keep their accessibility behavior; customize the presentation. Search is local,
-keyboard accessible, and shared with the experimental WebMCP search tool.
-Buttons and navigation never wrap. Long article titles may wrap normally.
-Visible, instant keyboard focus. No scrolling reveals or decorative animation.
-Text links and primary actions have a visible underline in their resting state.
-Primary actions use slightly heavier type and underlines. Navigation is text,
-with an underline for the current page. Search, theme, filter and copy controls
-use compact shapes with minimal rounding. Hover strengthens the underline. Link indicators never use arrows, chevrons,
-or replacement icons. Icons are reserved for actual controls and project types.
-La Bulle explains the session and the recap with real product details, rather
-than a slogan or empty decorative space.
-Compact controls and standalone actions have a 44px minimum touch height.
-Topics match individual tags, with a live result count. Notes remains marked
-as the current section while reading a note.
+Use native text links with resting underlines. Search and theme are the only
+icon controls in the header. They have 44px targets and descriptive accessible
+names. List links use compact targets of at least 32px; inline prose links use
+the native inline-link exception. Keyboard focus has a solid 2px outline with a
+4px offset, including on shadcn controls. No decorative animation.
 
-## Voice
+Use the existing shadcn Dialog, Button, Input, Badge, and Separator. Keep search
+local, preserve keyboard shortcuts and focus restoration, and contain scrolling
+inside the search results. Homepage note rows link to the full article; Notes
+keeps topic filters. Footer links lead to contact, RSS, and agent resources.
 
-Personal and specific: compiler algorithms, agent skills, MCP, C++, Python,
-real experiments. No invented metrics, availability claims, or customer logos.
-Home uses verified work details from LinkedIn and Kenneth; `docs/content-sources.md` records
-provenance. Older research stays available without defining current positioning.
-Use plain, natural sentences. Explain the actual work; avoid slogans,
-performative labels and claims that the source material does not support.
-Use Unicode NFC, ordinary spaces, straight quotes, hyphens and three-dot
-ellipses. Remove invisible characters and trailing whitespace. Preserve
-accented names and technical notation; do not transliterate them as lookalikes.
+## Writing
 
-## Exports
+Use concrete, natural English. Explain the software and the contribution rather
+than claiming importance or inventing an experience. Check current README and
+PR records before changing implementation stages or stating that work merged.
+Keep private repository URLs out of public project links.
 
-### CSS
-
-The complete light and dark system is in [`tokens.css`](tokens.css). The core light palette is:
-
-```css
-:root {
-  --color-paper: oklch(98.5% 0.005 285);
-  --color-ink: oklch(23% 0.018 280);
-  --color-ink-2: oklch(39% 0.012 270);
-  --color-muted: oklch(44% 0.011 270);
-  --color-rule: oklch(86% 0.01 280);
-  --color-accent: oklch(50% 0.095 285);
-  --color-lavender: oklch(96% 0.018 285);
-  --color-focus: oklch(48% 0.15 285);
-}
-```
-
-### Tailwind v4
-
-```css
-@theme inline {
-  --color-background: var(--color-paper);
-  --color-foreground: var(--color-ink);
-  --color-accent: var(--color-accent-soft);
-  --font-sans: var(--font-body);
-  --font-mono: var(--font-outlier);
-  --spacing-md: var(--space-md);
-}
-```
-
-### DTCG
-
-```json
-{
-  "color": {
-    "paper": {
-      "$type": "color",
-      "$value": "oklch(98.5% 0.005 285)"
-    },
-    "paper-2": {
-      "$type": "color",
-      "$value": "oklch(96.5% 0.005 285)"
-    },
-    "ink": {
-      "$type": "color",
-      "$value": "oklch(23% 0.018 280)"
-    },
-    "accent": {
-      "$type": "color",
-      "$value": "oklch(50% 0.095 285)"
-    },
-    "lavender": {
-      "$type": "color",
-      "$value": "oklch(96% 0.018 285)"
-    }
-  },
-  "font": {
-    "body": {
-      "$type": "fontFamily",
-      "$value": "Geist Variable"
-    },
-    "mono": {
-      "$type": "fontFamily",
-      "$value": "Geist Mono Variable"
-    }
-  },
-  "space": {
-    "md": {
-      "$type": "dimension",
-      "$value": "1.5rem"
-    }
-  }
-}
-```
-
-### shadcn/ui
-
-Current shadcn/Tailwind v4 variables use full color values, rather than HSL triples.
-
-```css
-:root {
-  --background: var(--color-paper);
-  --foreground: var(--color-ink);
-  --primary: var(--color-ink);
-  --primary-foreground: var(--color-paper);
-  --accent: var(--color-accent-soft);
-  --accent-foreground: var(--color-accent-text);
-  --border: var(--color-rule);
-  --input: var(--color-control-rule);
-  --ring: var(--color-focus);
-}
-```
+Use ordinary spaces, straight quotes, hyphens, three-dot ellipses, and Unicode
+NFC. Preserve accented names, source URLs, code, and technical notation.

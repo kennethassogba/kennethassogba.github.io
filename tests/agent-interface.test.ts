@@ -94,7 +94,16 @@ test("projects are published in HTML, Markdown, JSON and discovery", async () =>
   const markdown = await readFile("dist/projects/index.md", "utf8");
   const catalog = JSON.parse(await readFile("dist/api/projects.json", "utf8"));
   assert.equal(new Set(catalog.projects.map((project: { id: string }) => project.id)).size, catalog.projects.length);
-  assert.ok(catalog.projects.length >= 6);
+  assert.deepEqual(catalog.projects.map((project: { id: string }) => project.id), ["buildray", "keff"]);
+  assert.ok(!catalog.projects.some((project: { status?: string }) => project.status === "Planning"));
+  const home = await readFile("dist/index.html", "utf8");
+  for (const contribution of catalog.contributions) {
+    for (const pr of contribution.pullRequests) {
+      assert.ok(home.includes(pr.url));
+      assert.ok(markdown.includes(pr.url));
+      assert.ok(!Number.isNaN(Date.parse(pr.mergedAt)));
+    }
+  }
   for (const project of catalog.projects) {
     assert.ok(markdown.includes(project.description), project.id);
     if (project.url) assert.ok(html.includes(`href="${project.url}"`), project.id);
