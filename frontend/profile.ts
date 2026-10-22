@@ -2,12 +2,17 @@ import { studio, projectCatalog } from "./projects";
 import { contributions } from "./contributions";
 
 const summary = "I write software that maps large chip designs onto FPGAs so teams can test them before manufacturing. I use AI in my development work, write agent skills, and connect development tools through MCP.";
+const prototypingProduct = {
+  name: "Veloce proFPGA CS",
+  url: "https://www.siemens.com/en-us/products/ic/hav/veloce-cs/profpga-cs/",
+};
 
 export const profile = {
   studio,
   projectCatalog,
   contributions,
-  shortBio: "I build compiler software that maps chip designs onto FPGAs so engineers can test them before manufacturing. I write C++ and Python.",
+  shortBio: `I build compiler software for ${prototypingProduct.name}, mapping chip designs onto FPGAs so engineers can test them before manufacturing. I write C++ and Python.`,
+  prototypingProduct,
   background: "I also work on agent skills and MCP integrations for AI-assisted development. Before Siemens, I built simulation software at CEA during my PhD at École polytechnique.",
   name: "Kenneth Assogba",
   role: "Software Engineer",

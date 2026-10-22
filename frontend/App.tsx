@@ -110,11 +110,12 @@ function OpenSource() {
 
 function Home({ data }: { data: SiteData }) {
   const notes = data.entries.filter(entry => entry.kind === "note" && !entry.draft).slice(0, 3);
+  const [bioBeforeProduct, bioAfterProduct] = profile.shortBio.split(profile.prototypingProduct.name);
   return <>
     <section className="intro" aria-labelledby="intro-title">
       <h1 id="intro-title">{profile.name}</h1>
       <p className="intro-role">Software engineer at Siemens EDA</p>
-      <p>{profile.shortBio}</p>
+      <p>{bioBeforeProduct}<a href={profile.prototypingProduct.url}>{profile.prototypingProduct.name}</a>{bioAfterProduct}</p>
       <p>{profile.background}</p>
     </section>
     <section className="home-section" aria-labelledby="projects-title"><h2 id="projects-title">Projects</h2><ProjectList /></section>
