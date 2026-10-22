@@ -42,6 +42,7 @@ export function parseContent(source: string, kind: Entry["kind"]): Entry {
     allowedSchemes: ["https", "http", "mailto"],
     transformTags: { img: (tagName, attribs) => ({ tagName, attribs: { ...attribs, loading: "lazy" } }) },
   });
+  html = html.replace(/<pre>/g, '<pre tabindex="0" role="group" aria-label="Code example">');
   html = html.replace(/<table>([\s\S]*?)<\/table>/g, '<div class="table-wrap" tabindex="0">$&</div>');
   const headings: NonNullable<Entry["headings"]> = [];
   const usedIds = new Set<string>();

@@ -35,11 +35,10 @@ the native inline-link exception. Keyboard focus has a solid 2px outline with a
 
 Project and contribution descriptions are 15px with a 24px line height. Keep
 Buildray's source link next to its name; group PR links with their repository
-heading, stacking below it on narrow screens. Projects have unframed monochrome
-marks: Buildray's existing chart symbol and k_eff's existing mathematical
-wordmark. The wordmark retains its original italic serif lettering as a brand
-asset; interface text remains Geist. Marks are decorative and hidden from
-assistive technology because the adjacent link names the project.
+heading, stacking below it on narrow screens. Buildray uses its name without an
+icon. k_eff's mathematical wordmark is the project link, with an accessible name
+and no duplicate text label. Its original italic serif lettering is a brand
+asset; interface text remains Geist.
 
 Text and underline colors transition over 120ms. Keep focus indicators immediate
 and disable transitions for reduced motion.
@@ -54,6 +53,16 @@ Its close control has a 44px target. Use the same single focus outline as the
 rest of the site, with space around results so their outlines are not clipped.
 Underline result titles only; dates, topics, and keyboard hints are quiet 12px
 metadata. Keep the dialog heading left-aligned at every size.
+
+About uses a single greeting and an unframed portrait. Stack them on the smallest
+screens so the name is not squeezed beside the image. Prose section headings
+are 22px, with a 1.4 line height; paragraphs use a 1.8 line height. Publication
+titles and their metadata share the text column without bullet indentation.
+
+Articles use balanced title wrapping and a native, keyboard-operable Contents
+disclosure so reading starts near the top. Keep every section link available
+inside it. Code blocks can receive keyboard focus for horizontal scrolling.
+Markdown and copy actions remain simple underlined controls with 44px targets.
 
 ## Writing
 

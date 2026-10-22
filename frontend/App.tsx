@@ -90,13 +90,8 @@ function NoteRow({ entry }: { entry: Entry }) {
 function ProjectList({ level = 3 }: { level?: 2 | 3 }) {
   const Heading = level === 2 ? "h2" : "h3";
   return <ul className="project-list">{projectCatalog.map(project => <li className="project-item" key={project.id}>
-    <span className="project-mark" aria-hidden="true">{project.id === "buildray"
-      ? <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 4v16h16" stroke="currentColor" strokeWidth="2" /><path d="M8 15V8m5 7v-4m5 4V5" stroke="currentColor" strokeWidth="2.5" /></svg>
-      : <span className="keff-wordmark">k<sub>eff</sub></span>}</span>
-    <div className="project-item-content">
-      <div className="project-item-heading"><Heading><a href={project.url}>{project.name}</a></Heading>{project.source && <a className="project-source" href={project.source} aria-label={`${project.name} on GitHub`}>GitHub</a>}</div>
-      <p>{project.description}</p>
-    </div>
+    <div className="project-item-heading"><Heading><a href={project.url} aria-label={project.id === "keff" ? project.name : undefined}>{project.id === "keff" ? <span className="keff-wordmark" aria-hidden="true">k<sub>eff</sub></span> : project.name}</a></Heading>{project.source && <a className="project-source" href={project.source} aria-label={`${project.name} on GitHub`}>GitHub</a>}</div>
+    <p>{project.description}</p>
   </li>)}</ul>;
 }
 
@@ -152,7 +147,7 @@ function Writing({ data }: { data: SiteData }) {
 
 function About({ data }: { data: SiteData }) {
   return <article className="about-page">
-    <div className="about-heading"><div><p className="hello">About</p><h1>Hi, I'm Kenneth.</h1></div><img src="/assets/img/portrait.png" width="176" height="176" alt="Kenneth Assogba" /></div>
+    <div className="about-heading"><h1>Hi, I'm Kenneth.</h1><img src="/assets/img/portrait.png" width="176" height="176" alt="Kenneth Assogba" /></div>
     <div className="prose">
       <p>{profile.intro}</p>
       <h2>FPGA prototyping</h2>
@@ -197,7 +192,7 @@ function Article({ data }: { data: SiteData }) {
     <a className="quiet-link article-back" href={entry.kind === "note" ? "/notes.html" : "/about.html"}>{entry.kind === "note" ? "All notes" : "About Kenneth"}</a>
     <header className="article-heading"><div className="article-meta"><time dateTime={entry.date}>{dateLabel(entry.date, true)}</time><span>{entry.categories}</span><span>{entry.readingMinutes} min read</span>{entry.draft && <Badge variant="outline">Draft</Badge>}</div><h1>{entry.title}</h1><p className="page-lede">{entry.description}</p>{entry.authors && <p className="muted">{entry.authors}</p>}</header>
     {entry.draft && <aside className="draft-notice">An older working note. Some results and references are still unfinished.</aside>}
-    {entry.headings && entry.headings.filter(heading => heading.level === 2).length >= 4 && <nav className="article-contents" aria-label="Article sections"><h2>Contents</h2><ul>{entry.headings.filter(heading => heading.level === 2).map(heading => <li key={heading.id}><a href={`${data.page.route}#${heading.id}`}>{heading.title}</a></li>)}</ul></nav>}
+    {entry.headings && entry.headings.filter(heading => heading.level === 2).length >= 4 && <details className="article-contents"><summary>Contents<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true"><path d="M3 8h10" /><path className="contents-plus" d="M8 3v10" /></svg></summary><nav aria-label="Article sections"><ul>{entry.headings.filter(heading => heading.level === 2).map(heading => <li key={heading.id}><a href={`${data.page.route}#${heading.id}`}>{heading.title}</a></li>)}</ul></nav></details>}
     <div className="prose" dangerouslySetInnerHTML={{ __html: entry.html }} />
     <Separator className="article-rule" />
     <div className="article-formats"><MarkdownLink url={data.page.markdownUrl} /><CopyMarkdown url={data.page.markdownUrl} /></div>
