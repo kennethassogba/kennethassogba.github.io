@@ -49,6 +49,12 @@ local, preserve keyboard shortcuts and focus restoration, and contain scrolling
 inside the search results. Homepage note rows link to the full article; Notes
 keeps topic filters. Footer links lead to contact, RSS, and agent resources.
 
+The search dialog stays within the viewport height, including on short screens.
+Its close control has a 44px target. Use the same single focus outline as the
+rest of the site, with space around results so their outlines are not clipped.
+Underline result titles only; dates, topics, and keyboard hints are quiet 12px
+metadata. Keep the dialog heading left-aligned at every size.
+
 ## Writing
 
 Use concrete, natural English. Explain the software and the contribution rather
